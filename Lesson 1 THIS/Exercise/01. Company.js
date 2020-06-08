@@ -41,8 +41,8 @@ class Company {
 
         let result = `Best Department is: ${bestDepartment.name}\nAverage salary: ${bestDepartment.averageSalary().toFixed(2)}\n`;
         
-        let emps = [...bestDepartment]
-        .employees
+        let emps = [...bestDepartment
+        .employees]
         .sort((a, b) => b.salary - a.salary || (a.username).localeCompare(b.username))
         .map(e => `${e.username} ${e.salary} ${e.position}`)
         .join('\n');
