@@ -28,7 +28,9 @@ class Hex {
     }
 
     parse(str) {
-        return this.value = parseInt(str, 16);
+        this.value = parseInt(str, 16);
+
+        return this.value;
     }
 
 }
