@@ -1,4 +1,4 @@
-function solve() {
+function solve2() {
    const rows = Array.from(document.getElementsByTagName('tr')).slice(1);
 
    rows
@@ -17,5 +17,25 @@ function solve() {
             });
          this.style.backgroundColor = '#413f5e';
       }
+   }
+}
+
+function solve(){
+   document.querySelector('tbody').addEventListener('click', mark);
+   const rows = Array.from(document.querySelectorAll('tbody > tr'));
+
+   function mark(e) {
+      e.preventDefault();
+
+      if (!e.target.parentElement.style.backgroundColor) {
+         clear();
+         e.target.parentElement.style.backgroundColor = 'rgb(65, 63, 94)';
+      } else {
+         clear();
+      }
+   }
+
+   function clear(){
+      rows.forEach(r => r.style.backgroundColor = '');
    }
 }
