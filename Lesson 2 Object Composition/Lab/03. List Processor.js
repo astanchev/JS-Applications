@@ -18,6 +18,54 @@ function solve(input) {
                 );
 }
 
+function listProcessor(params) {
+
+    const execute = (function () {
+        let inner = [];
+
+        return {
+            add: (element) => {
+                inner.push(element);
+            },
+            remove: (element) => {
+                inner = inner.filter((x) => x !== element);
+            },
+            print: () => {
+                console.log(inner.join(','));
+            }
+        }
+    })();
+
+    params.forEach((tokens) => {
+        const [command, string] = tokens.split(/\s+/);
+        execute[command](string);
+    });
+}
+
+function solve2(input) {    
+    const result = []
+    input.forEach((e) => {
+        const [cmd, str] = e.split(' ');
+
+        if (cmd === 'add') {
+            result.push(str);
+        } else if (cmd === 'remove') {
+            removeStr(str);
+        } else if (cmd === 'print') {
+            console.log(result);
+        }
+    });
+
+    function removeStr(str) {
+        let strIndex = result.indexOf(str);
+
+        while (strIndex >= 0) {
+            result.splice(strIndex, 1);
+            strIndex = result.indexOf(str);
+        }
+    }
+}
+
 console.log(solve([
     'add JSFundamentals', 
     'print', 

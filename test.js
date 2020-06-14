@@ -1,5 +1,5 @@
-function solve(input) {    
+function solve(input) { 
     
 }
 
-console.log(solve( ));
+solve( );
