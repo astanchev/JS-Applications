@@ -33,6 +33,36 @@ function solve(inputList) {
     });
 }
 
+function solve2(input) { 
+    const resultObj = {};
+
+    for (const line of input) {
+        const lineParts = line.split(' ');
+
+        if (lineParts.indexOf('create') >= 0) {
+            if (lineParts.indexOf('inherit') >= 0) {
+                resultObj[lineParts[1]] = Object.create(resultObj[lineParts[3]]);
+            } else {
+                resultObj[lineParts[1]] = {};
+            }
+        } else if (lineParts.indexOf('set') >= 0) {
+            resultObj[lineParts[1]][lineParts[2]] = lineParts[3];           
+        } else if (lineParts.indexOf('print') >= 0) {
+            const objToPrint = resultObj[lineParts[1]];
+            console.log(print(objToPrint));
+        }
+    }
+
+    function print(obj) {
+        const result = [];
+        for (const key in obj) {
+            result.push(`${key}:${obj[key]}`);
+        }
+
+        return result.join(', ');
+    }
+}
+
 console.log(solve([
                     'create c1',
                     'create c2 inherit c1',
