@@ -17,9 +17,8 @@
         return this.valueOf() + str;
     };
 
-    String.prototype.isEmpty = function () {
-        let isEmpty = this.valueOf().length === 0;
-        return isEmpty;
+    String.prototype.isEmpty = function () {        
+        return this.valueOf().length === 0;
     };
 
     String.prototype.truncate = function (num) {
