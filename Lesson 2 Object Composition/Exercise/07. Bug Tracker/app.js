@@ -58,6 +58,8 @@ function solve() {
                 </div>`;
             });
             
+            // Second variant
+
             //document.querySelector(selector).textContent = '';
 
             // reports.forEach((bug) => {
