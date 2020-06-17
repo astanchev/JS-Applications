@@ -43,20 +43,22 @@ function elemelons() {
         }
     }
 
-    class Melolemonmelon extends Airmelon {
+    class Melolemonmelon extends Watermelon{
         constructor(weight, melonSort) {
             super(weight, melonSort);
-            this._elements = ['Water', 'Fire', 'Earth', 'Air'];
-            this._index = 0;
+            this.elements = ['Water', 'Fire', 'Earth', 'Air'];
+            this.index = 0;
         }
 
         morph() {
-            return this._elements[this._index++ % this._elements.length];
+            const currentIndex = this.index % this.elements.length;
+            this.index++;
+            return this.elements[currentIndex];
         }
 
         toString() {
-            let sortIndex = super.toString().indexOf('\n');
-            return `Element: ${this.morph()}` + super.toString().slice(sortIndex);
+            let cutIndex = super.toString().indexOf('\n');
+            return `Element: ${this.morph()}` + super.toString().slice(cutIndex);
         }
     }
 

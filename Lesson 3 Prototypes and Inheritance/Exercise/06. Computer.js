@@ -108,3 +108,18 @@ function solve() {
         Desktop
     };
 }
+
+let classes = solve();
+let Computer = classes.Computer;
+let Laptop = classes.Laptop;
+let Desktop = classes.Desktop;
+let Monitor = classes.Monitor;
+let Battery = classes.Battery;
+let Keyboard = classes.Keyboard;
+
+let keyboard = new Keyboard('Logitech',70);
+let monitor = new Monitor('Benq',28,18);
+let desktop = new Desktop("JAR Computers",3.3,8,1,keyboard,monitor);
+let b = new Computer("Most Computers",2,8,1.5);
+
+console.log(desktop);
