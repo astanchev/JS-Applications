@@ -1,7 +1,7 @@
 const rgbToHexColor = require("./index.js");
 const assert = require("chai").assert;
 
-describe.only('rgbToHexColor() tests', () => {
+describe('rgbToHexColor() tests', () => {
     it('Should return correct result if passed correct data', () => {
         let actual = rgbToHexColor(0, 0, 0);
         let expected = "#000000";

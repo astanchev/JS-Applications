@@ -1,9 +1,12 @@
-function isSymmetric(arr) {
-    if (!Array.isArray(arr))
-        return false; // Non-arrays are non-symmetric
-    let reversed = arr.slice(0).reverse(); // Clone and reverse
-    let equal = (JSON.stringify(arr) == JSON.stringify(reversed));
-    return equal;
+function createCalculator() {
+    let value = 0;
+    return {
+        add: function(num) { value += Number(num); },
+        subtract: function(num) { value -= Number(num); },
+        get: function() { return value; }
+    }
 }
 
-console.log(isSymmetric([1, 2, 3, 2, 1]));
+let actual = createCalculator();
+
+console.log(actual.add("a"));
