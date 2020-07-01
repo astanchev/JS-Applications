@@ -1,7 +1,7 @@
 const isSymmetric = require("./index.js");
 const assert = require("chai").assert;
 
-describe.only('isSymmetric() tests', () => {
+describe('isSymmetric() tests', () => {
     it('Should return false if is not array', () => {
         let arr = "abc";
         assert.isFalse(isSymmetric(arr));
