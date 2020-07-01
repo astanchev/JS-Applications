@@ -17,4 +17,7 @@ describe("sum() tests", function() {
     let expected = 0;
     assert.equal(actual, expected);
   });
+  it("should return NAN if passed not number array", function () {
+     assert.isNaN(sum("abc")); 
+  });
 });
