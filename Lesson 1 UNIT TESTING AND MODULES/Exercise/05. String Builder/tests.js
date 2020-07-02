@@ -19,7 +19,7 @@ describe('StringBuilder class tests', () => {
             assert.isTrue(StringBuilder.hasOwnProperty('_vrfyParam'));
         });
 
-        it.only('functions should exist 2', () => {
+        it('functions should exist 2', () => {
             assert.property(stringBuilder, 'constructor');
             assert.property(stringBuilder, 'append');
             assert.property(stringBuilder, 'prepend');
