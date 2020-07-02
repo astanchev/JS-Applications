@@ -1,7 +1,7 @@
 const lookupChar = require('./index.js');
 const assert = require('chai').assert;
 
-describe.only('lookupChar() tests', () => {
+describe('lookupChar() tests', () => {
     it('Should return undefined with non-string first parameter', () => {
         assert.isUndefined(lookupChar(15, 0));
     });
