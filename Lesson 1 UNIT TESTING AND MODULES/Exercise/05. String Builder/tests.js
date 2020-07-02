@@ -18,6 +18,16 @@ describe('StringBuilder class tests', () => {
             assert.isTrue(StringBuilder.prototype.hasOwnProperty('toString'));
             assert.isTrue(StringBuilder.hasOwnProperty('_vrfyParam'));
         });
+
+        it.only('functions should exist 2', () => {
+            assert.property(stringBuilder, 'constructor');
+            assert.property(stringBuilder, 'append');
+            assert.property(stringBuilder, 'prepend');
+            assert.property(stringBuilder, 'insertAt');
+            assert.property(stringBuilder, 'remove');
+            assert.property(stringBuilder, 'toString');
+            assert.property(StringBuilder, '_vrfyParam');
+        });
     });
 
     describe('constructor function tests', () => {
