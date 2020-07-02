@@ -1,7 +1,7 @@
 const isOddOrEven = require('./index.js');
 const assert = require('chai').assert;
 
-describe.only('isOddOrEven() tests', () => {
+describe('isOddOrEven() tests', () => {
     it('Should return undefined with a number parameter', () => {
         assert.isUndefined(isOddOrEven(8));
     });
