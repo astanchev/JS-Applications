@@ -5,21 +5,20 @@ function loadRepos() {
 	const url = `https://api.github.com/users/${username.value}/repos`;
 	[repos.textContent, username.value] = ['', ''];
 
+	//Works in Judge	
 	$.ajax({
         url,
         success: displayRepos,
         error: displayError
 	});
 	
-	// Not Work in Judge
-
+	// Doesn't work in Judge
 	// fetch(url)
 	// 	.then((res) => {
-	// 		if (res.ok) {
-	// 			return res.json();
-	// 		} else if (!res.ok) {
+	// 		if (res.status !== 200) {
 	// 			throw res;
-	// 		}
+	// 		} 
+	// 			return res.json();			
 	// 	})
 	// 	.then((data) => displayRepos(data))
 	// 	.catch((err) => displayError(err));
