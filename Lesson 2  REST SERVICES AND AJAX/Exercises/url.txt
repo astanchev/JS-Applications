@@ -1,1 +1,0 @@
-https://judgetests.firebaseio.com/businfo/{stopId}.json
