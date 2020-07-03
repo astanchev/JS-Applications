@@ -1,0 +1,3 @@
+Open main folder (where is server.js) in terminal
+Type:   node server.js
+For every problem (01..04) open index.html with live-server
