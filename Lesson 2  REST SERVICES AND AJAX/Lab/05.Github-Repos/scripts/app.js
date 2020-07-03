@@ -6,22 +6,22 @@ function loadRepos() {
 	[repos.textContent, username.value] = ['', ''];
 
 	//Works in Judge	
-	$.ajax({
-        url,
-        success: displayRepos,
-        error: displayError
-	});
+	// $.ajax({
+    //     url,
+    //     success: displayRepos,
+    //     error: displayError
+	// });
 	
-	// Doesn't work in Judge
-	// fetch(url)
-	// 	.then((res) => {
-	// 		if (res.status !== 200) {
-	// 			throw res;
-	// 		} 
-	// 			return res.json();			
-	// 	})
-	// 	.then((data) => displayRepos(data))
-	// 	.catch((err) => displayError(err));
+	//Doesn't work in Judge
+	fetch(url)
+		.then((res) => {
+			if (res.status !== 200) {
+				throw res;
+			} 
+				return res.json();			
+		})
+		.then((data) => displayRepos(data))
+		.catch((err) => displayError(err));
 
 	function displayRepos(data) {
 		data.forEach((repo) => {
