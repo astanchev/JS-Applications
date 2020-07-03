@@ -2,7 +2,7 @@ function getInfo() {
     const busStop = document.getElementById('stopId');
     const divStopName = document.getElementById('stopName');
     const ulBuses = document.getElementById('buses');
-    const url = `http://localhost:3000/businfo/${busStop.value}.json`;
+    const url = `https://judgetests.firebaseio.com/businfo/${busStop.value}.json`;
     busStop.value = '';
     ulBuses.innerHTML = '';
 

@@ -9,7 +9,7 @@ function solve() {
     function depart() {
         switchDisable();
 
-        fetch(`http://localhost:3000/schedule/${nextStopId}.json`)
+        fetch(`https://judgetests.firebaseio.com/schedule/${nextStopId}.json`)
             .then((res) => {
                 if (res.status !== 200) {
                     throw res;
