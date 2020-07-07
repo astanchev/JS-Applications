@@ -20,7 +20,7 @@ function createElement(type, content, attributes) {
     }
 
     function append(node) {
-        if (typeof node === 'string') {
+        if (typeof node === 'string' || typeof node === 'number') {
             node = document.createTextNode(node);
         }
 
