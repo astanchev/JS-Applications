@@ -82,13 +82,13 @@ const controllers = {
     },
     options: (req, res, tokens) => {
         const headers = {};
- 
+
         headers['Access-Control-Allow-Origin'] = '*';
         headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
         headers['Access-Control-Allow-Credentials'] = false;
         headers['Access-Control-Max-Age'] = '86400'; // 24 hours
         headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept';
- 
+
         res.writeHead(200, headers);
         res.end();
     }
@@ -132,5 +132,5 @@ const server = http.createServer(async function (req, res) {
     }
 });
 
-server.listen(3000);
-console.log('Server started on port 3000. You can make requests to http://localhost:3000/');
+server.listen(8000);
+console.log('Server started on port 8000. You can make requests to http://localhost:8000/');
