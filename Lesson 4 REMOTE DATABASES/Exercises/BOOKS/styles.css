@@ -55,6 +55,11 @@ table button:hover{
     text-decoration: underline;
 }
 
+table > tbody > tr button:disabled{
+    background-color: grey;
+    color: white;
+}
+
 button#loadBooks{
     margin: 0 auto;
     display:block;
@@ -91,4 +96,8 @@ form button{
     color:white;
     border: none;
     padding: 0.5%;
+}
+
+.inputError {
+    border: 2px solid red;
 }
