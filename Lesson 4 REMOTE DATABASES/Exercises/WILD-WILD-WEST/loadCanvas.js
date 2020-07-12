@@ -79,6 +79,6 @@ function loadCanvas(player){
         }
 
         targetObj.x += targetObj.speed;
-        drawCanvas(mouse.x,mouse.y)
+        drawCanvas(mouse.x,mouse.y);
     }
 }
