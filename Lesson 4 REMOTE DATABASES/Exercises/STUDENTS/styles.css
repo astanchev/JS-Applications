@@ -3,6 +3,24 @@ body{
     font-size: 20px;
 }
 
+div.btnHolder{
+    margin: 0 auto;
+    display:block;
+    padding:1%;
+    margin-top: 10%;
+    margin-bottom: 1%;
+    text-align: center;
+}
+
+button{
+    margin: 0 auto;
+    padding:1%;
+    display:inline-block;
+    text-align: center;
+    width: calc(20% - 4px);
+    border-radius: 4px;
+}
+
 table{
     border:1px solid #234465;
     padding: 1%;
@@ -42,4 +60,8 @@ table tbody tr:nth-child(even) button{
 
 table tr:hover{
     text-decoration: underline;
+}
+
+.inputError {
+    border: 2px solid red;
 }
