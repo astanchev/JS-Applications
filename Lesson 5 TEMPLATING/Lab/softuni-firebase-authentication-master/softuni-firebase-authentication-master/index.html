@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="./node_modules/handlebars/dist/handlebars.min.js"></script>
+</head>
+
+<body>
+
+  <div id="app"></div>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCZV4rDC3RHOqpGrepQ8VjAM9nYy80LfeY",
+      authDomain: "test-app-4db8c.firebaseapp.com",
+      databaseURL: "https://test-app-4db8c.firebaseio.com",
+      projectId: "test-app-4db8c",
+      storageBucket: "test-app-4db8c.appspot.com",
+      messagingSenderId: "501631363612",
+      appId: "1:501631363612:web:c63e367310f4a6ddc50dd9",
+      measurementId: "G-Q24KJVBBTE"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script id="loader-template" type="text/x-handlebars-template">
+    <div id="app-loader">Loading...</div>
+  </script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
