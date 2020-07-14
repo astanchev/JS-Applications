@@ -41,25 +41,25 @@ function attachEvents() {
 
     function createElement(type, content, attributes) {
         const result = document.createElement(type);
-    
+
         if (attributes !== undefined) {
             Object.assign(result, attributes);
         }
-    
+
         if (Array.isArray(content)) {
             content.forEach(append);
         } else if(content !== null || content !== undefined){
             append(content);
         }
-    
+
         function append(node) {
             if (typeof node === 'string' || typeof node === 'number') {
                 node = document.createTextNode(node);
             }
-    
+
             result.appendChild(node);
         }
-    
+
         return result;
     }
 
@@ -72,7 +72,7 @@ function attachEvents() {
         btnDelete.addEventListener('click', async () => {
             try {
                 await removePlayer(player.objectId);
-                loadPlayers();                
+                loadPlayers();
             } catch (error) {
                 alert(error);
                 return;
@@ -97,13 +97,13 @@ function attachEvents() {
         ], {className: 'player'});
         playerEl.setAttribute('data-id', player.objectId);
 
-        async function startGame() {            
+        async function startGame() {
             document.querySelectorAll('.delete').forEach(b => b.disabled = true);
-            document.querySelectorAll('.play').forEach(b => b.disabled = true);                
+            document.querySelectorAll('.play').forEach(b => b.disabled = true);
 
             saveBtn.addEventListener('click', savePlayer);
             reloadBtn.addEventListener('click', reloadGun);
-    
+
             canvas.style.display = 'block';
             saveBtn.style.display = 'inline-block';
             reloadBtn.style.display = 'inline-block';
@@ -115,7 +115,7 @@ function attachEvents() {
                 await updatePlayer(player.objectId, player);
 
                 clearInterval(document.getElementById('canvas').intervalId);
-                
+
                 saveBtn.removeEventListener('click', savePlayer);
                 reloadBtn.removeEventListener('click', reloadGun);
 
@@ -125,9 +125,9 @@ function attachEvents() {
 
                 playerEl.querySelector('.money').textContent = player.money;
                 playerEl.querySelector('.bullets').textContent = player.bullets;
-                
+
                 document.querySelectorAll('.delete').forEach(b => b.disabled = false);
-                document.querySelectorAll('.play').forEach(b => b.disabled = false); 
+                document.querySelectorAll('.play').forEach(b => b.disabled = false);
             } catch (error) {
                 alert(error);
                 return;
@@ -146,7 +146,7 @@ function attachEvents() {
                 return;
             }
         }
-        
+
         return playerEl;
     }
 
@@ -171,15 +171,15 @@ function attachEvents() {
 
         try {
             const createdPlayer = await createPlayer(player);
-            loadPlayers();            
+            loadPlayers();
         } catch (error) {
             alert(error);
             return;
         }
-    }    
+    }
 
-    
+
     document.querySelector('#addPlayer').addEventListener('click', addPlayer);
-    
+
     loadPlayers();
 }
