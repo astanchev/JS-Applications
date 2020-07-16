@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
         try {
             code = await data.getCode(locationName);
         } catch (error) {
-            inputLocation.value = `Error`;
+            alert(`Error! Not supported town ${locationName}.`);
             return;
         }
 
