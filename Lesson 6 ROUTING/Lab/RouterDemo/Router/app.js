@@ -5,7 +5,6 @@ var router = new Router({
         logState: function(state){
             console.log(state);
         }
-        
     }
 });
 

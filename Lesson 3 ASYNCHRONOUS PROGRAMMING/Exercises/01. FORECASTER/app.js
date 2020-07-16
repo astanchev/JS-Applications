@@ -27,10 +27,9 @@ window.addEventListener('load', () => {
         let code = '';
 
         try {
-            code = await data.getCode(locationName);            
+            code = await data.getCode(locationName);
         } catch (error) {
-            mainDiv.innerHTML = `Error`;
-            mainDiv.style.display = 'block';            
+            inputLocation.value = `Error`;
             return;
         }
 
