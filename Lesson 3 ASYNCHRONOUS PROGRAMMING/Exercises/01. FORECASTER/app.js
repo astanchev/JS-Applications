@@ -23,13 +23,17 @@ window.addEventListener('load', () => {
         todayDiv.innerHTML = todayDivLabel;
         upcomingDiv.innerHTML = upcomingDivLabel;
 
-        const locationName = inputLocation.value;
+        const locationName = inputLocation.value.trim();
+        if (locationName === '') {
+            return;
+        }
+
         let code = '';
 
         try {
             code = await data.getCode(locationName);
         } catch (error) {
-            alert(`Error! Not supported town ${locationName}.`);
+            alert(`Error! Not supported town: ${locationName}.`);
             return;
         }
 
