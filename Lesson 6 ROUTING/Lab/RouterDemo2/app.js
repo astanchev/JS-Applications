@@ -39,7 +39,7 @@ createPath('/link2/subLink1', Page2_1);
 function clickHandler(e) {
     if (e.target.dataset.myLink === "1") {
         e.preventDefault();
-        router(e.target.href);
+        router(e.target.href, false);
     }
 }
 

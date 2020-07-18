@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row space-top">
+        <div class="col-md-12">
+            <h1>Welcome to Furniture System</h1>
+            <p>Select furniture from the catalog to view details.</p>
+        </div>
+    </div>
+    <div class="row space-top">
+        {{#each furniture}}
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <blockquote class="card-blockquote">
+                        <img src="{{image}}" />
+                        <p>{{description}}</p>
+                        <footer>Someone famous in
+                            <cite title="Source Title">{{make}}</cite>
+                        </footer>
+                        <div class="pull-right">
+                            <a href='#/furniture/details/{{objectId}}' data-class="details"
+                                class="btn btn-info">Details</a>
+                            {{#unless liked}}
+                            <a href='#/furniture/all/{{objectId}}' data-class="liked" class="btn btn-success">Like item</a>
+                            {{/unless}}
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="col-md-12">
+            <h1>No furniture</h1>
+        </div>
+        {{/each}}
+    </div>
+</div>

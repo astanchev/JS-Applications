@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Animations&Interceptors Exercise</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./notifications.css">
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="./node_modules/sammy/lib/min/sammy-0.7.6.min.js"></script>
+  <script src="./node_modules/sammy/lib/plugins/sammy.handlebars.js"></script>
+  <script type="module" src="./app.js"></script>
+</head>
+
+<body id="main">
+  <nav>
+    <a href="#/furniture/all" class="btn btn-default">All Furniture</a>
+    <a href="#/furniture/create" class="btn btn-default">Create Furniture</a>
+    <a href="#/furniture/mine" class="btn btn-default">My Furniture</a>
+  </nav>
+  <div id="container">
+    <div id="notifications">
+      <div id="loadingBox" class="notification">
+        <span>Loading …</span>
+      </div>
+      <div id="infoBox" class="notification">
+        <span>Success</span>
+      </div>
+      <div id="errorBox" class="notification">
+        <span>Error</span>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
