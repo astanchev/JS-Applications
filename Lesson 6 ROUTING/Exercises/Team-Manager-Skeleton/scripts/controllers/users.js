@@ -23,8 +23,8 @@ export async function registerPost() {
 
     try {
         const registeredUser = await data.register(user);
-        if (loggedUser.code) {
-            throw loggedUser;
+        if (registeredUser.code) {
+            throw registeredUser;
         }
         notifications.showInfo('Successful registration!');
         this.redirect('#/login');
@@ -60,6 +60,11 @@ export async function loginPost() {
         this.app.userData.userId = loggedUser.objectId;
         this.app.userData.loggedIn = true;
 
+        if (loggedUser.teamId) {
+            this.app.userData.hasTeam = true;
+            this.app.userData.teamId = loggedUser.teamId;
+        }
+
         localStorage.setItem('userToken', loggedUser['user-token']);
         localStorage.setItem('username', loggedUser.username);
         localStorage.setItem('userId', loggedUser.objectId);
@@ -72,8 +77,15 @@ export async function loginPost() {
 }
 
 export async function logout() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
     try {
-        const logoutUser = await data.logout();
+        const logoutUser = await data.logout(token);
 
         if (logoutUser.code) {
             throw loggedUser;
@@ -93,5 +105,6 @@ export async function logout() {
         this.redirect('#/home');
     } catch (error) {
         notifications.showError(error.message);
+        this.redirect('#/home');
     }
 }

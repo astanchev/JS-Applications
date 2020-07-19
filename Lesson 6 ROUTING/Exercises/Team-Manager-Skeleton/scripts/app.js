@@ -33,8 +33,9 @@ window.addEventListener('load', () => {
         this.get('#/catalog', catalog.teamCatalog);
         this.get('#/catalog/:id', catalog.teamDetails);
 
-        this.get('#/create', catalog.createTeam);
-        //this.post('#/create', () => false);
+        this.get('#/create', catalog.createTeamGet);
+        this.post('#/create', (ctx) => { catalog.createTeamPost.call(ctx); });
+
 
         this.get('#/edit/:id', team.editTeam);
         //this.post('#/edit/:id', () => false );

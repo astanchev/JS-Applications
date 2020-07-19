@@ -4,6 +4,9 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
+    team: 'data/team',
+    members: '?loadRelations=members',
+    user: 'data/Users'
 };
 
 export async function register(user) {
@@ -22,14 +25,63 @@ export async function login(user) {
     })).json();
 }
 
-export async function logout() {
-    const token = localStorage.getItem('userToken');
-    if (!token) {
-        throw new Error('User is not logged in');
-    }
-
-    return await fetch(url + endpoints.logout, {
+export async function logout(token) {
+   return await fetch(url + endpoints.logout, {
         method: 'get',
         headers: { 'user-token': token }
     });
+}
+
+export async function getAllTeams(token) {
+    return await (await fetch(url + endpoints.team, {
+        method: 'get',
+        headers: { 'user-token': token }
+    })).json();
+}
+
+export async function getTeamById(teamId, token) {
+    const urlTeam = url  + endpoints.team + `/${teamId}` + endpoints.members;
+
+    return await (await fetch(urlTeam, {
+        method: 'get',
+        headers: { 'user-token': token }
+    })).json();
+}
+
+export async function createTeam(team, token) {
+    const createdTeam = await (await fetch(url + endpoints.team, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(team)
+    })).json();
+
+    const teamId = createdTeam.objectId;
+    const userId = localStorage.getItem('userId');
+
+    const numberUsers = await (await fetch(url + endpoints.team + `/${teamId}/members`, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify([userId])
+    })).json();
+
+    if (numberUsers.code) {
+        return numberUsers;
+    } else {
+        const user = await (await fetch(url + endpoints.user + `/${userId}`, {
+            method: 'put',
+            headers: {
+                'Content-type': 'application/json',
+                'user-token': token
+            },
+            body: JSON.stringify({teamId: teamId})
+        })).json();
+
+        return createdTeam;
+    }
 }
