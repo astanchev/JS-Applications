@@ -1,6 +1,5 @@
 import createElement from './dom.js';
 import * as data from './data.js';
-import { editBook } from '../BOOKS/data.js';
 
 const tBody = document.querySelector('table > tbody');
 const div = createElement('div', '', {className: 'btnHolder'});
@@ -59,7 +58,7 @@ async function loadStudents() {
         tBody.innerHTML = '';
         for (const student of students) {
             tBody.appendChild(createStudentEl(student));
-        }        
+        }
     } catch (error) {
         alert(error);
         return;
@@ -83,7 +82,7 @@ async function validateInputs(row) {
     } else {
         row.inputId.classList.remove('inputError');
     }
-    
+
     if (values.firstName === '') {
         errors.push('First name is required!');
         row.inputFN.classList.add('inputError');
@@ -139,9 +138,9 @@ async function createStudentRow() {
         grade: Number(editRow.inputGr.value.trim()),
     };
 
-    
+
     try {
-        const savedStudent =  await data.createStudent(student);        
+        const savedStudent =  await data.createStudent(student);
         return hasErrors;
     } catch (error) {
         alert(error);
@@ -169,7 +168,7 @@ window.addEventListener('load', () => {
 
         if(hasErrors){
             return;
-        } 
+        }
 
         tBody.removeChild(tBody.lastElementChild);
         loadStudents();
