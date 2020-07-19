@@ -85,3 +85,14 @@ export async function createTeam(team, token) {
         return createdTeam;
     }
 }
+
+export async function editTeam(teamId, newTeam, token) {
+    return await (await fetch(url + endpoints.team + `/${teamId}`, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(newTeam)
+    })).json();
+}

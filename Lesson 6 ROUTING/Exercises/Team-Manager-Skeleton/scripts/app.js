@@ -37,8 +37,8 @@ window.addEventListener('load', () => {
         this.post('#/create', (ctx) => { catalog.createTeamPost.call(ctx); });
 
 
-        this.get('#/edit/:id', team.editTeam);
-        //this.post('#/edit/:id', () => false );
+        this.get('#/edit/:id', team.editTeamGet);
+        this.post('#/edit/:id', (ctx) => { team.editTeamPost.call(ctx); });
 
         this.get('#/join/:id', team.joinTeam);
         this.get('#/leave', team.leaveTeam);
