@@ -4,25 +4,12 @@ import myFurniture from './controllers/myFurniture.js';
 import * as manageFurniture from './controllers/furniture.js';
 const loader = document.getElementById('loadingBox');
 
-
-function toggleLoader(isLoading) {
-    if (isLoading) {
-        loader.style.display = 'inline-block';
-        loader.addEventListener('click', (e) => {
-            loader.style.display = 'none';
-        });
-        setTimeout(() => loader.style.display = 'none', 1000);
-    } else {
-        loader.style.display = 'none';
-    }
-}
-
 window.addEventListener('load', () => {
-    const app = Sammy('#main', function () {
+    const app = Sammy('#container', function () {
         this.use('Handlebars', 'hbs');
 
         this.before({}, function () {
-            toggleLoader(true);
+            loader.style.display = 'inline-block';
         });
 
         this.get('index.html', home);
