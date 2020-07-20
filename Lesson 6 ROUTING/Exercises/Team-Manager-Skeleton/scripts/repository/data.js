@@ -86,6 +86,28 @@ export async function createTeam(team, token) {
     }
 }
 
+export async function joinTeam(teamId, userId, token) {
+    const numberUsers = await (await fetch(url + endpoints.team + `/${teamId}/members`, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify([userId])
+    })).json();
+
+    const user = await (await fetch(url + endpoints.user + `/${userId}`, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({teamId: teamId})
+    })).json();
+
+    return user;
+}
+
 export async function editTeam(teamId, newTeam, token) {
     return await (await fetch(url + endpoints.team + `/${teamId}`, {
         method: 'put',

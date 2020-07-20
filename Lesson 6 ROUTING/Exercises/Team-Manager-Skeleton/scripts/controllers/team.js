@@ -8,6 +8,17 @@ export async function joinTeam() {
         this.redirect('#/home');
         return;
     }
+
+    try {
+        const updatedUser = await data.joinTeam(this.params.id, localStorage.userId, token);
+        if (updatedUser.code) {
+            throw editedTeam;
+        }
+        notifications.showInfo('You\'ve joined the team!');
+        this.redirect('#/catalog');
+    } catch (error) {
+        notifications.showError(error.message);
+    }
 }
 
 export async function editTeamGet() {
@@ -78,4 +89,6 @@ export async function leaveTeam() {
         this.redirect('#/home');
         return;
     }
+
+    
 }
