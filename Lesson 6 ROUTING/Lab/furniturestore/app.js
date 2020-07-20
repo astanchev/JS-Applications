@@ -8,21 +8,21 @@ const loader = document.getElementById('loadingBox');
 function toggleLoader(isLoading) {
     if (isLoading) {
         loader.style.display = 'inline-block';
+        loader.addEventListener('click', (e) => {
+            loader.style.display = 'none';
+        });
+        setTimeout(() => loader.style.display = 'none', 1000);
     } else {
         loader.style.display = 'none';
     }
 }
 
 window.addEventListener('load', () => {
-    const app = Sammy('#container', function () {
+    const app = Sammy('#main', function () {
         this.use('Handlebars', 'hbs');
 
         this.before({}, function () {
             toggleLoader(true);
-        });
-
-        this.after({}, function () {
-            toggleLoader(false);
         });
 
         this.get('index.html', home);
