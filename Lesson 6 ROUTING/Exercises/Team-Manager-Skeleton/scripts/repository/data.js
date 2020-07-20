@@ -12,7 +12,9 @@ const endpoints = {
 export async function register(user) {
     return await (await fetch(url + endpoints.register, {
         method: 'post',
-        headers: { 'Content-type': 'application/json' },
+        headers: {
+            'Content-type': 'application/json'
+        },
         body: JSON.stringify(user)
     })).json();
 }
@@ -20,31 +22,39 @@ export async function register(user) {
 export async function login(user) {
     return await (await fetch(url + endpoints.login, {
         method: 'post',
-        headers: { 'Content-type': 'application/json' },
+        headers: {
+            'Content-type': 'application/json'
+        },
         body: JSON.stringify(user)
     })).json();
 }
 
 export async function logout(token) {
-   return await fetch(url + endpoints.logout, {
+    return await fetch(url + endpoints.logout, {
         method: 'get',
-        headers: { 'user-token': token }
+        headers: {
+            'user-token': token
+        }
     });
 }
 
 export async function getAllTeams(token) {
     return await (await fetch(url + endpoints.team, {
         method: 'get',
-        headers: { 'user-token': token }
+        headers: {
+            'user-token': token
+        }
     })).json();
 }
 
 export async function getTeamById(teamId, token) {
-    const urlTeam = url  + endpoints.team + `/${teamId}` + endpoints.members;
+    const urlTeam = url + endpoints.team + `/${teamId}` + endpoints.members;
 
     return await (await fetch(urlTeam, {
         method: 'get',
-        headers: { 'user-token': token }
+        headers: {
+            'user-token': token
+        }
     })).json();
 }
 
@@ -79,7 +89,9 @@ export async function createTeam(team, token) {
                 'Content-type': 'application/json',
                 'user-token': token
             },
-            body: JSON.stringify({teamId: teamId})
+            body: JSON.stringify({
+                teamId: teamId
+            })
         })).json();
 
         return createdTeam;
@@ -102,10 +114,59 @@ export async function joinTeam(teamId, userId, token) {
             'Content-type': 'application/json',
             'user-token': token
         },
-        body: JSON.stringify({teamId: teamId})
+        body: JSON.stringify({
+            teamId: teamId
+        })
     })).json();
 
     return user;
+}
+
+export async function leaveTeam(userId, token) {
+    const user = await (await fetch(url + endpoints.user + `/${userId}`, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+
+    const urlTeam = url + endpoints.team + `/${user.teamId}` + endpoints.members;
+    const teamWithMembers = await (await fetch(urlTeam, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+    let teamMembers = teamWithMembers.members.map(m => m.objectId);
+    const userIndex = teamMembers.indexOf(userId);
+
+    if (userIndex < 0) {
+        throw new Error('You are not a member of that team!');
+    }
+
+    teamMembers.splice(userIndex, 1);
+
+    const numberUsers = await (await fetch(url + endpoints.team + `/${user.teamId}/members`, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(teamMembers)
+    })).json();
+
+    const updatedUser = await (await fetch(url + endpoints.user + `/${userId}`, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({
+            teamId: ''
+        })
+    })).json();
+
+    return updatedUser;
 }
 
 export async function editTeam(teamId, newTeam, token) {

@@ -14,7 +14,8 @@ export async function joinTeam() {
         if (updatedUser.code) {
             throw editedTeam;
         }
-        notifications.showInfo('You\'ve joined the team!');
+        this.app.userData.hasTeam = true;
+        notifications.showInfo('You joined the team!');
         this.redirect('#/catalog');
     } catch (error) {
         notifications.showError(error.message);
@@ -90,5 +91,15 @@ export async function leaveTeam() {
         return;
     }
 
-    
+    try {
+        const updatedUser = await data.leaveTeam(localStorage.userId, token);
+        if (updatedUser.code) {
+            throw editedTeam;
+        }
+        this.app.userData.hasTeam = false;
+        notifications.showInfo('You left the team!');
+        this.redirect('#/catalog');
+    } catch (error) {
+        notifications.showError(error.message);
+    }
 }
