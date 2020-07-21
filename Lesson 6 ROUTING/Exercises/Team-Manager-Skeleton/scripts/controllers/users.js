@@ -12,6 +12,16 @@ export async function registerGet() {
 }
 
 export async function registerPost() {
+    if (this.params.username.length < 3) {
+        notifications.showError('Username should be at least 3 symbols!');
+        return;
+    }
+
+    if (this.params.password.length < 3) {
+        notifications.showError('Password should be at least 3 symbols!');
+        return;
+    }
+
     if (this.params.password !== this.params.repeatPassword) {
         notifications.showError('Passwords don\'t match!');
         return;
