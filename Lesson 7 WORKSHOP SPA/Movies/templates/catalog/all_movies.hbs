@@ -15,7 +15,7 @@
             <img
                 src="{{image}}">
             <p>Available Tickets: {{availableTickets}}</p>
-            <button><a href="#/movie/buy/{{objectId}}">Buy Ticket</a></button>
+            <button><a href="#/movie/buy/{{objectId}}?title={{title}}&availableTickets={{availableTickets}}&origin={{@root.origin}}&search={{@root.search}}">Buy Ticket</a></button>
             <button><a href="#/movie/details/{{objectId}}">Details</a></button>
         </div>
     {{/each}}

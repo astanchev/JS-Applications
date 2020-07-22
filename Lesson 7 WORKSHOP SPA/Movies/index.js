@@ -44,6 +44,7 @@ window.addEventListener('load', () => {
 
 
         this.get('#/movie/details/:id', movie.getDetails);
+        this.get('#/movie/buy/:id', movie.buyTicket);
 
     });
 

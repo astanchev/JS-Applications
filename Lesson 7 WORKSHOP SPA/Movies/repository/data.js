@@ -98,3 +98,16 @@ export async function getMovieById(token, movieId) {
         }
     })).json();
 }
+
+export async function buyTicket(token, movieId, tickets) {
+    const movieURL = url + endpoints.movie + `/${movieId}`;
+
+    return (await fetch(movieURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({availableTickets: (tickets - 1)})
+    })).json();
+}

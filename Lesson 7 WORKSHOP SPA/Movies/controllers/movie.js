@@ -98,7 +98,40 @@ export async function getDetails() {
         notifications.showError(error.message);
     }
 
-    Object.assign(movie, this.app.userData);
+    Object.assign(movie, { origin: encodeURIComponent('#/movie/details/' +  this.params.id)}, this.app.userData);
 
     this.partial('../templates/movie/details.hbs', movie);
+}
+
+export async function buyTicket() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    if (Number(this.params.availableTickets) === 0) {
+        notifications.showError(`There are no available tickets for ${this.params.title}!`);
+        return;
+    }
+
+    try {
+        notifications.showLoader();
+        const movie = await data.buyTicket(token, this.params.id, Number(this.params.availableTickets));
+        if (movie.code) {
+            throw movie;
+        }
+        notifications.hideLoader();
+        notifications.showInfo(`Successfully bought ticket for ${this.params.title}!`);
+
+        if (this.params.search) {
+            this.redirect( this.params.origin + `?search=${this.params.search}`);
+        } else {
+            this.redirect( this.params.origin);
+        }
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
 }

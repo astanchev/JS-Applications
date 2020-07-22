@@ -30,7 +30,7 @@ export async function getAllMovies() {
         notifications.showError(error.message);
     }
 
-    Object.assign(renderData, this.app.userData);
+    Object.assign(renderData, { origin: encodeURIComponent('#/catalog/all_movies'), search}, this.app.userData);
 
     this.partial('../templates/catalog/all_movies.hbs', renderData);
 }
@@ -63,7 +63,7 @@ export async function getMyMovies() {
         notifications.showError(error.message);
     }
 
-    Object.assign(renderData, this.app.userData);
+    Object.assign(renderData, { origin: encodeURIComponent('#/catalog/my_movies')}, this.app.userData);
 
     this.partial('../templates/catalog/my_movies.hbs', renderData);
 }
