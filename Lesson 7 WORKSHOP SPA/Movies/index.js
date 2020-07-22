@@ -46,6 +46,15 @@ window.addEventListener('load', () => {
         this.get('#/movie/details/:id', movie.getDetails);
         this.get('#/movie/buy/:id', movie.buyTicket);
 
+        this.get('#/movie/delete/:id', movie.deleteGet);
+        this.post('#/movie/delete/:id', (ctx) => {
+            movie.deletePost.call(ctx);
+        });
+
+        this.get('#/movie/edit/:id', movie.editGet);
+        this.post('#/movie/edit/:id', (ctx) => {
+            movie.editPost.call(ctx);
+        });
     });
 
     app.run('/');

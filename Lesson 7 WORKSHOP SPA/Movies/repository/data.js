@@ -48,6 +48,19 @@ export async function createMovie(token, movie) {
     })).json();
 }
 
+export async function editMovie(token, movieId, movie) {
+    const movieURL = url + endpoints.movie + `/${movieId}`;
+    
+    return await (await fetch(movieURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(movie)
+    })).json();
+}
+
 export async function getMovies(token, searchedGenre) {
     let result = [];
 
