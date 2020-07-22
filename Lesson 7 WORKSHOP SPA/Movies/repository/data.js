@@ -50,7 +50,7 @@ export async function createMovie(token, movie) {
 
 export async function editMovie(token, movieId, movie) {
     const movieURL = url + endpoints.movie + `/${movieId}`;
-    
+
     return await (await fetch(movieURL, {
         method: 'put',
         headers: {
@@ -58,6 +58,17 @@ export async function editMovie(token, movieId, movie) {
             'user-token': token
         },
         body: JSON.stringify(movie)
+    })).json();
+}
+
+export async function deleteMovie(token, movieId) {
+    const movieURL = url + endpoints.movie + `/${movieId}`;
+
+    return await (await fetch(movieURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
     })).json();
 }
 

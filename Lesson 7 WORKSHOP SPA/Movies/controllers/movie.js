@@ -63,7 +63,7 @@ export async function createPost() {
         }
         form.reset();
         notifications.hideLoader();
-        notifications.showInfo('Movie created successfully.');
+        notifications.showInfo('Movie created successfully!');
     } catch (error) {
         notifications.hideLoader();
         notifications.showError(error.message);
@@ -210,13 +210,12 @@ export async function editPost() {
             throw editedMovie;
         }
         notifications.hideLoader();
-        notifications.showInfo('Movie edited successfully.');
+        notifications.showInfo('Movie edited successfully!');
         this.redirect('#/catalog/my_movies');
     } catch (error) {
         notifications.hideLoader();
         notifications.showError(error.message);
     }
-
 }
 
 export async function deleteGet() {
@@ -260,4 +259,17 @@ export async function deletePost() {
         return;
     }
 
+    try {
+        notifications.showLoader();
+        const deletedTime = await data.deleteMovie(token, this.params.id);
+        if (deletedTime.code) {
+            throw deletedTime;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Movie removed successfully!');
+        this.redirect('#/catalog/my_movies');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
 }
