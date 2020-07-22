@@ -70,3 +70,35 @@ export async function createPost() {
     }
 
 }
+
+export async function getDetails() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    this.partials = {
+        header: (await this.load('../templates/common/header.hbs')),
+        footer: (await this.load('../templates/common/footer.hbs'))
+    };
+
+    let movie = {};
+
+    try {
+        notifications.showLoader();
+        movie = await data.getMovieById(token, this.params.id);
+        if (movie.code) {
+            throw movie;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+
+    Object.assign(movie, this.app.userData);
+
+    this.partial('../templates/movie/details.hbs', movie);
+}

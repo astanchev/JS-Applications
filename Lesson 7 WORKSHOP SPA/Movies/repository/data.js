@@ -88,3 +88,13 @@ export async function getMyMovies(token, userId) {
         }
     })).json();
 }
+
+export async function getMovieById(token, movieId) {
+    const movieURL = url + endpoints.movie + `/${movieId}`;
+
+    return (await fetch(movieURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}

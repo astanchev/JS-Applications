@@ -42,6 +42,9 @@ window.addEventListener('load', () => {
         this.get('#/catalog/search', catalog.getAllMovies);
         this.get('#/catalog/my_movies', catalog.getMyMovies);
 
+
+        this.get('#/movie/details/:id', movie.getDetails);
+
     });
 
     app.run('/');
