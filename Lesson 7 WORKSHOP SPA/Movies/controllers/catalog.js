@@ -65,5 +65,5 @@ export async function getMyMovies() {
 
     Object.assign(renderData, this.app.userData);
 
-    this.partial('../templates/catalog/all_movies.hbs', renderData);
+    this.partial('../templates/catalog/my_movies.hbs', renderData);
 }
