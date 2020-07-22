@@ -20,7 +20,7 @@ export async function getAllMovies() {
     try {
         notifications.showLoader();
         renderData.movies = (await data.getMovies(token, search))
-                                .sort((m1, m2) => m1.availableTickets - m2.availableTickets);
+                                .sort((m1, m2) => m2.availableTickets - m1.availableTickets);
         if (renderData.movies.code) {
             throw renderData.movies;
         }
@@ -53,7 +53,7 @@ export async function getMyMovies() {
     try {
         notifications.showLoader();
         renderData.movies = (await data.getMyMovies(token, localStorage.getItem('userId')))
-                                .sort((m1, m2) => m1.availableTickets - m2.availableTickets);
+                                .sort((m1, m2) => m2.availableTickets - m1.availableTickets);
         if (renderData.movies.code) {
             throw renderData.movies;
         }
