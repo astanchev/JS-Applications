@@ -47,3 +47,44 @@ export async function createMovie(token, movie) {
         body: JSON.stringify(movie)
     })).json();
 }
+
+export async function getMovies(token, searchedGenre) {
+    let result = [];
+
+    if (searchedGenre) {
+        result = await getSearchedMovies(token, searchedGenre);
+    } else {
+        result = await getAllMovies(token);
+    }
+
+    return result;
+}
+
+export async function getAllMovies(token) {
+
+    return (await fetch(url + endpoints.movie, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getSearchedMovies(token, searchedGenre) {
+    const whereURL = url + endpoints.movie + `?where=${escape(`genres LIKE '%${searchedGenre}%'`)}`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getMyMovies(token, userId) {
+    const whereURL = url + endpoints.movie + `?where=ownerId%3D%27${userId}%27`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}

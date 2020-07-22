@@ -1,6 +1,7 @@
 import home from './controllers/home.js';
 import * as users from './controllers/users.js';
 import * as movie from './controllers/movie.js';
+import * as catalog from './controllers/catalog.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
@@ -21,16 +22,25 @@ window.addEventListener('load', () => {
         this.get('/', home);
 
         this.get('#/register', users.registerGet);
-        this.post('#/register', (ctx) => { users.registerPost.call(ctx); });
+        this.post('#/register', (ctx) => {
+            users.registerPost.call(ctx);
+        });
 
         this.get('#/login', users.loginGet);
-        this.post('#/login', (ctx) => { users.loginPost.call(ctx); });
+        this.post('#/login', (ctx) => {
+            users.loginPost.call(ctx);
+        });
 
         this.get('#/logout', users.logout);
 
-        this.get('#/create', movie.createGet);
-        this.post('#/create', (ctx) => { movie.createPost.call(ctx); });
+        this.get('#/movie/create', movie.createGet);
+        this.post('#/movie/create', (ctx) => {
+            movie.createPost.call(ctx);
+        });
 
+        this.get('#/catalog/all_movies', catalog.getAllMovies);
+        this.get('#/catalog/search', catalog.getAllMovies);
+        this.get('#/catalog/my_movies', catalog.getMyMovies);
 
     });
 

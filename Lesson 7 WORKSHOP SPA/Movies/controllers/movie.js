@@ -14,7 +14,7 @@ export async function createGet() {
         footer: (await this.load('../templates/common/footer.hbs'))
     };
 
-    this.partial('../templates/create.hbs', this.app.userData);
+    this.partial('../templates/movie/create.hbs', this.app.userData);
 }
 
 export async function createPost() {

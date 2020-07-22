@@ -7,7 +7,7 @@ export async function registerGet() {
         footer: (await this.load('../templates/common/footer.hbs'))
     };
 
-    this.partial('../templates/register.hbs', this.app.userData);
+    this.partial('../templates/users/register.hbs', this.app.userData);
 }
 
 export async function registerPost() {
@@ -52,7 +52,7 @@ export async function loginGet() {
         footer: (await this.load('../templates/common/footer.hbs'))
     };
 
-    this.partial('../templates/login.hbs', this.app.userData);
+    this.partial('../templates/users/login.hbs', this.app.userData);
 }
 
 export async function loginPost() {
