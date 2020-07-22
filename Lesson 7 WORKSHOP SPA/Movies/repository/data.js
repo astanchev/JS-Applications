@@ -36,3 +36,14 @@ export async function logout(token) {
         }
     });
 }
+
+export async function createMovie(token, movie) {
+    return await (await fetch(url + endpoints.movie, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(movie)
+    })).json();
+}

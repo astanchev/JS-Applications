@@ -1,5 +1,6 @@
 import home from './controllers/home.js';
 import * as users from './controllers/users.js';
+import * as movie from './controllers/movie.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
@@ -26,6 +27,11 @@ window.addEventListener('load', () => {
         this.post('#/login', (ctx) => { users.loginPost.call(ctx); });
 
         this.get('#/logout', users.logout);
+
+        this.get('#/create', movie.createGet);
+        this.post('#/create', (ctx) => { movie.createPost.call(ctx); });
+
+
     });
 
     app.run('/');
