@@ -9,6 +9,12 @@ export async function joinTeam() {
         return;
     }
 
+    if (this.app.userData.hasTeam) {
+        notifications.showError('You have a team and can\'t join one!');
+        this.redirect('#/catalog');
+        return;
+    }
+
     try {
         const updatedUser = await data.joinTeam(this.params.id, localStorage.userId, token);
         if (updatedUser.code) {
