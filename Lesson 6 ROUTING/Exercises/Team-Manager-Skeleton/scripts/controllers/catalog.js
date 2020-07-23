@@ -122,6 +122,7 @@ export async function createTeamPost() {
             throw createdTeam;
         }
         this.app.userData.hasTeam = true;
+        this.app.userData.teamId = createdTeam.objectId;
         notifications.showInfo('Team created!');
         this.redirect('#/catalog');
     } catch (error) {

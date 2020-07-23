@@ -21,6 +21,7 @@ export async function joinTeam() {
             throw editedTeam;
         }
         this.app.userData.hasTeam = true;
+        this.app.userData.teamId = updatedUser.teamId;
         notifications.showInfo('You joined the team!');
         this.redirect('#/catalog');
     } catch (error) {
@@ -103,6 +104,7 @@ export async function leaveTeam() {
             throw editedTeam;
         }
         this.app.userData.hasTeam = false;
+        this.app.userData.teamId = undefined;
         notifications.showInfo('You left the team!');
         this.redirect('#/catalog');
     } catch (error) {
