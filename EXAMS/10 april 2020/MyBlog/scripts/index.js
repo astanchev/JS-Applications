@@ -35,10 +35,14 @@ window.addEventListener('load', () => {
 
         this.get('#/post/details/:id', post.details);
         this.get('#/post/delete/:id', post.deletePost);
+        this.get('#/post/edit/:id', post.editGet);
+
         this.post('#/post/create', (ctx) => {
             post.createPost.call(ctx);
         });
-
+        this.post('#/post/edit/:id', (ctx) => {
+            post.editPost.call(ctx);
+        });
     });
 
     app.run('/');
