@@ -1,5 +1,6 @@
 import home from './controllers/home.js';
 import * as users from './controllers/users.js';
+import * as post from './controllers/post.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
@@ -30,6 +31,13 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/logout', users.logout);
+
+
+        this.get('#/post/details/:id', post.details);
+        this.post('#/post/create', (ctx) => {
+            post.create.call(ctx);
+        });
+
     });
 
     app.run('/');

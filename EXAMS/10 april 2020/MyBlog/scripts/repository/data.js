@@ -4,12 +4,12 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
-    movie: 'data/Post',
+    post: 'data/Post',
     user: 'data/Users'
 };
 
 export async function register(user) {
-    return await (await fetch(url + endpoints.register, {
+    return (await fetch(url + endpoints.register, {
         method: 'post',
         headers: {
             'Content-type': 'application/json'
@@ -19,7 +19,7 @@ export async function register(user) {
 }
 
 export async function login(user) {
-    return await (await fetch(url + endpoints.login, {
+    return (await fetch(url + endpoints.login, {
         method: 'post',
         headers: {
             'Content-type': 'application/json'
@@ -35,4 +35,67 @@ export async function logout(token) {
             'user-token': token
         }
     });
+}
+
+export async function createPost(token, post) {
+    return (await fetch(url + endpoints.post, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(post)
+    })).json();
+}
+
+export async function getPostById(token, postId) {
+    const postURL = url + endpoints.post + `/${postId}`;
+
+    return (await fetch(postURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getAllPosts(token) {
+    return (await fetch(url + endpoints.post, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getAllPostsByUserId(token, userId) {
+    const whereURL = url + endpoints.post + `?where=ownerId%3D%27${userId}%27`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function editPost(token, postId, post) {
+    const postURL = url + endpoints.post + `/${postId}`;
+
+    return (await fetch(postURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(post)
+    })).json();
+}
+
+export async function deletePost(token, postId) {
+    const postURL = url + endpoints.post + `/${postId}`;
+
+    return (await fetch(postURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
 }
