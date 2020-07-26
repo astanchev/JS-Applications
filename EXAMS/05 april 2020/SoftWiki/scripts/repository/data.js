@@ -49,7 +49,17 @@ export async function createArticle(token, article) {
 }
 
 export async function getArticleById(token, articleId) {
-    const articleURL = url + endpoints.post + `/${articleId}`;
+    const articleURL = url + endpoints.article + `/${articleId}`;
+
+    return (await fetch(articleURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getArticleByCategory(token, category) {
+    const articleURL = url + endpoints.article + `?where=category%3D%27${escape(category)}%27`;
 
     return (await fetch(articleURL, {
         headers: {

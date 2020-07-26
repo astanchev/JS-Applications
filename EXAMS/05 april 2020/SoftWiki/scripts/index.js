@@ -20,26 +20,27 @@ window.addEventListener('load', () => {
         this.get('#/home', home);
         this.get('/', home);
 
-        this.get('#/register', users.registerGet);
-        this.post('#/register', (ctx) => {
-            users.registerPost.call(ctx);
-        });
-
         this.get('#/login', home);
         this.post('#/login', (ctx) => {
             users.loginPost.call(ctx);
         });
 
+        this.get('#/register', users.registerGet);
+        this.post('#/register', (ctx) => {
+            users.registerPost.call(ctx);
+        });
+
         this.get('#/logout', users.logout);
 
 
+        this.get('#/article/create', article.createGet);
         // this.get('#/article/details/:id', article.details);
         // this.get('#/article/delete/:id', article.deleteArticle);
         // this.get('#/article/edit/:id', article.editGet);
 
-        // this.post('#/article/create', (ctx) => {
-        //     article.createArticle.call(ctx);
-        // });
+        this.post('#/article/create', (ctx) => {
+            article.createArticle.call(ctx);
+        });
         // this.post('#/article/edit/:id', (ctx) => {
         //     article.editPost.call(ctx);
         // });
