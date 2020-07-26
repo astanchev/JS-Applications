@@ -11,13 +11,14 @@ export function showError(message) {
     notifications.error.children[0].textContent = message;
     notifications.error.style.display = 'block';
 
+    setTimeout(() => hideNotification(notifications.error), 5000);
 }
 
 export function showInfo(message) {
     notifications.info.children[0].textContent = message;
     notifications.info.style.display = 'block';
 
-    setTimeout(() => hideNotification(notifications.info), 3000);
+    setTimeout(() => hideNotification(notifications.info), 5000);
 }
 
 export function showLoader() {

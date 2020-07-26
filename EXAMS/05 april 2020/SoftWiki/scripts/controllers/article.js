@@ -33,6 +33,13 @@ export async function createArticle() {
         return;
     }
 
+    const allowedCategories = ['javascript', 'java', 'pyton', 'c#'];
+
+    if (allowedCategories.every(c => c !== this.params.category.toLowerCase())) {
+        notifications.showError('Category should be one of: JavaScript, Java, Pyton or C#!');
+        return;
+    }
+
     const article = {
         title: this.params.title,
         category: this.params.category,
