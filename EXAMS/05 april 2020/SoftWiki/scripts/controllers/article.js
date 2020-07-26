@@ -20,7 +20,7 @@ export async function createGet() {
     this.partial('../../templates/article/create.hbs', renderData);
 }
 
-export async function createArticle() {
+export async function createPost() {
     const token = localStorage.getItem('userToken');
     if (!token) {
         notifications.showError('User is not logged in');
@@ -62,36 +62,43 @@ export async function createArticle() {
     }
 }
 
-// export async function details() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function details() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     this.partials = {
-//         header: (await this.load('../../templates/common/header.hbs'))
-//     };
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
+    };
 
-//     let post = {};
+    let article = {};
 
-//     try {
-//         notifications.showLoader();
-//         post = await data.getPostById(token, this.params.id);
-//         if (post.code) {
-//             throw post;
-//         }
-//         notifications.hideLoader();
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
+    try {
+        notifications.showLoader();
+        article = await data.getArticleById(token, this.params.id);
+        if (article.code) {
+            throw article;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
 
-//     Object.assign(post, this.app.userData);
+    if (article.ownerId === this.app.userData.userId) {
+        article.isCreator = true;
+    } else {
+        article.isCreator = false;
+    }
 
-//     this.partial('../../templates/post/details.hbs', post);
-// }
+    Object.assign(article, this.app.userData);
+
+    this.partial('../../templates/article/details.hbs', article);
+}
 
 // export async function deletePost() {
 //     const token = localStorage.getItem('userToken');

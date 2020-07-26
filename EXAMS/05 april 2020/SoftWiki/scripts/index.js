@@ -34,12 +34,12 @@ window.addEventListener('load', () => {
 
 
         this.get('#/article/create', article.createGet);
-        // this.get('#/article/details/:id', article.details);
+        this.get('#/article/details/:id', article.details);
         // this.get('#/article/delete/:id', article.deleteArticle);
         // this.get('#/article/edit/:id', article.editGet);
 
         this.post('#/article/create', (ctx) => {
-            article.createArticle.call(ctx);
+            article.createPost.call(ctx);
         });
         // this.post('#/article/edit/:id', (ctx) => {
         //     article.editPost.call(ctx);
