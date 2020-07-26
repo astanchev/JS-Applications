@@ -1,0 +1,123 @@
+#canvas {
+  border: 1px solid black;
+  margin: 10px 0 10px 0;
+  cursor: crosshair;
+}
+
+.tools {
+  float: left;
+  margin-top: 10px;
+}
+
+#colors button.colors {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+button#eraser {
+  width: 80px;
+  height: 40px;
+  margin-left: 25px;
+}
+
+#eraser {
+  background: lightslategray;
+  color: cornsilk;
+  font-weight: 600;
+  font-size: medium;
+}
+
+button#clear {
+  width: 120px;
+  height: 40px;
+  font-weight: 600;
+  font-size: medium;
+  background: aquamarine;
+}
+
+label {
+  font-weight: 600;
+  font-size: medium;
+}
+
+#black {
+  background: black;
+}
+
+#pink {
+  background: pink;
+}
+
+#red {
+  background: red;
+}
+
+#green {
+  background: green;
+}
+
+#blue {
+  background: blue;
+}
+
+#orange {
+  background: orange;
+}
+
+.slidecontainer {
+  width: 100%;
+  /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;
+  /* Override default CSS styles */
+  appearance: none;
+  width: 100%;
+  /* Full-width */
+  height: 25px;
+  /* Specified height */
+  background: #d3d3d3;
+  /* Grey background */
+  outline: none;
+  /* Remove outline */
+  opacity: 0.7;
+  /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s;
+  /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1;
+  /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Override default look */
+  appearance: none;
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  /* Slider handle height */
+  background: #4CAF50;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  /* Set a specific slider handle width */
+  height: 25px;
+  /* Slider handle height */
+  background: #4CAF50;
+  /* Green background */
+  cursor: pointer;
+  /* Cursor on hover */
+}
