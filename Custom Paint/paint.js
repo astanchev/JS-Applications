@@ -30,6 +30,9 @@ window.onload = function () {
         clearCanvas();
     });
 
+    const inputWidth = document.querySelector('#penWidth');
+    inputWidth.addEventListener('change', changeLine);
+
     ctx = canvas.getContext('2d');
     ctx.lineWidth = width;
 
