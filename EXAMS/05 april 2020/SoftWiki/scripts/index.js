@@ -35,7 +35,7 @@ window.addEventListener('load', () => {
 
         this.get('#/article/create', article.createGet);
         this.get('#/article/details/:id', article.details);
-        // this.get('#/article/delete/:id', article.deleteArticle);
+        this.get('#/article/delete/:id', article.deleteArticle);
         // this.get('#/article/edit/:id', article.editGet);
 
         this.post('#/article/create', (ctx) => {

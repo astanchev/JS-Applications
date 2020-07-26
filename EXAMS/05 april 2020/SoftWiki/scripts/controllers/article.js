@@ -100,28 +100,28 @@ export async function details() {
     this.partial('../../templates/article/details.hbs', article);
 }
 
-// export async function deletePost() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function deleteArticle() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const deleteTime = await data.deletePost(token, this.params.id);
-//         if (deleteTime.code) {
-//             throw deleteTime;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo('Post deleted successfully!');
-//         this.redirect('#/home');
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    try {
+        notifications.showLoader();
+        const deleteTime = await data.deleteArticle(token, this.params.id);
+        if (deleteTime.code) {
+            throw deleteTime;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Article deleted successfully!');
+        this.redirect('#/home');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}
 
 // export async function editGet() {
 //     const token = localStorage.getItem('userToken');
