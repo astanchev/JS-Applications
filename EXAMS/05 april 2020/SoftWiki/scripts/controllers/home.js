@@ -34,6 +34,13 @@ export default async function () {
         } catch (error) {
             notifications.hideLoader();
             notifications.showError(error.message);
+            return;
+        }
+    }
+
+    for (const key in renderData) {
+        if (renderData.hasOwnProperty(key)) {
+            renderData[key].sort((a1, a2) => (a2.title).localeCompare(a1.title));
         }
     }
 
