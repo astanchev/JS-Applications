@@ -5,20 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Canvas Paint Demo</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="paint.css">
     <script src="paint.js"></script>
 </head>
 
 <body>
-    <div class="tools" id='colors'>
+    <div id='colors'>
         <button class="colors" id='black'></button>
         <button class="colors" id='red'></button>
         <button class="colors" id='green'></button>
         <button class="colors" id='blue''></button>
         <button class="colors" id='orange''></button>
         <button class="colors" id='pink'></button>
-    </div>
-    <div class="tools">
         <button id="eraser">Еraser</button>
     </div>
     <canvas id='canvas' width='800' height='600'></canvas>
@@ -26,7 +25,7 @@
         <label for="penWidth">Change line width: </label>
         <input id='penWidth' name="penWidth" type="range" min="1" max="20" value="1" onchange="changeLine()"/>
     </div>
-    <div class="tools">
+    <div>
         <button id="clear">Clear Canvas</button>
     </div>
 </body>

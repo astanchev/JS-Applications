@@ -1,24 +1,22 @@
 #canvas {
   border: 1px solid black;
-  margin: 10px 0 10px 0;
+  margin: 10px 60px 10px 0;
   cursor: crosshair;
-}
-
-.tools {
-  float: left;
-  margin-top: 10px;
 }
 
 #colors button.colors {
   width: 40px;
   height: 40px;
   border-radius: 100%;
+  margin-top: 10px;
 }
 
 button#eraser {
   width: 80px;
   height: 40px;
-  margin-left: 25px;
+  margin-left: 10px;
+  margin-top: 10px;
+  position: fixed;
 }
 
 #eraser {
@@ -34,6 +32,7 @@ button#clear {
   font-weight: 600;
   font-size: medium;
   background: aquamarine;
+  margin-top: 10px;
 }
 
 label {
