@@ -49,6 +49,9 @@ function handleMove(e) {
     yPos = e.clientY - canvas.offsetTop;
     if (down == true) {
         if (!isEraser) {
+            isEraser = false;
+            canvas.style.cursor = 'crosshair';
+            ctx.globalCompositeOperation = "source-over";
             ctx.lineTo(xPos, yPos); //create a line from old point to new one
             ctx.strokeStyle = color;
             ctx.stroke();
