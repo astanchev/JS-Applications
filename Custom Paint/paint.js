@@ -40,6 +40,7 @@ window.onload = function () {
     canvas.addEventListener('mousemove', handleMove);
     canvas.addEventListener('mousedown', handleDown);
     canvas.addEventListener('mouseup', handleUp);
+    canvas.addEventListener('mouseout', handleOut);
 
 
 };
@@ -71,6 +72,10 @@ function handleDown() {
 }
 
 function handleUp() {
+    down = false;
+}
+
+function handleOut() {
     down = false;
 }
 
