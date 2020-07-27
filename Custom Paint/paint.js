@@ -1,11 +1,11 @@
 let canvas;
 let ctx;
-let down = false; //mouse is pressed
-let color = 'black'; //default drawing color
-let width = 1; // drawing width
-let isEraser = false; // is eraser On/Off
+let down = false;
+let color = 'black';
+let width = 1;
+let isEraser = false;
 
-//calling window.onload to make sure the HTML is loaded
+
 window.onload = function () {
     canvas = document.getElementById('canvas');
 
@@ -36,13 +36,10 @@ window.onload = function () {
     ctx = canvas.getContext('2d');
     ctx.lineWidth = width;
 
-    //handling mouse click and move events
     canvas.addEventListener('mousemove', handleMove);
     canvas.addEventListener('mousedown', handleDown);
     canvas.addEventListener('mouseup', handleUp);
     canvas.addEventListener('mouseout', handleOut);
-
-
 };
 
 function handleMove(e) {
@@ -53,7 +50,7 @@ function handleMove(e) {
             isEraser = false;
             canvas.style.cursor = 'crosshair';
             ctx.globalCompositeOperation = "source-over";
-            ctx.lineTo(xPos, yPos); //create a line from old point to new one
+            ctx.lineTo(xPos, yPos);
             ctx.strokeStyle = color;
             ctx.stroke();
         } else {
