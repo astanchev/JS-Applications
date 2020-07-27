@@ -15,6 +15,7 @@ window.onload = function () {
         isEraser = false;
         canvas.style.cursor = 'crosshair';
         changeColor(e.target.id);
+        markButton(e.target);
     }));
 
     const eraseBtn = document.querySelector('#eraser');
@@ -22,6 +23,7 @@ window.onload = function () {
         e.preventDefault();
         isEraser = true;
         canvas.style.cursor = 'not-allowed';
+        markButton(e.target);
     });
 
     const clearBtn = document.querySelector('#clear');
@@ -60,6 +62,22 @@ function handleMove(e) {
             ctx.stroke();
         }
     }
+}
+
+function markButton(button) {
+    Array
+        .from(document.querySelectorAll('.tools'))
+        .forEach(b => {
+            if (b !== button) {
+                b.style['border-color'] = '';
+                b.style['border-width'] = '';
+                b.style.color = '';
+            } else {
+                b.style['border-color'] = 'yellow';
+                b.style['border-width'] = '5px';
+                b.style.color = 'red';
+            }
+        });
 }
 
 function handleDown() {

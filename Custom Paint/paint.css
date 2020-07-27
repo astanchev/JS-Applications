@@ -56,15 +56,39 @@ label {
   background: green;
 }
 
+#greenyellow {
+  background: greenyellow;
+}
+
 #blue {
   background: blue;
+}
+
+#darkviolet {
+  background: darkviolet;
+}
+
+#turquoise {
+  background: turquoise;
 }
 
 #orange {
   background: orange;
 }
 
-.slidecontainer {
+#yellow {
+  background: yellow;
+}
+
+#brown {
+  background: brown;
+}
+
+#violet {
+  background: violet;
+}
+
+.slide-container {
   width: 100%;
 }
 
