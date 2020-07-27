@@ -3,7 +3,6 @@ window.addEventListener('load', () => {
     const fpsSpan = document.querySelector('#fps');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const colors = ['red', 'blue', 'green',]
 
     canvas.addEventListener('click', (e) => {
         const targetX = e.clientX - offsetLeft;
@@ -35,6 +34,7 @@ window.addEventListener('load', () => {
     function getRandomCoords() {
         return { x: 100 + Math.random() * 600, y: 100 + Math.random() * 400 };
     }
+
     function getRandomColor() {
         var letters = '0123456789ABCDEF'.split('');
         var color = '#';
