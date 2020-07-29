@@ -4,7 +4,10 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
-    user: 'data/Users'
+    user: 'data/Users',
+    idea: 'data/Idea',
+    comments: '?loadRelations=comments',
+    comment: 'data/Comment'
 };
 
 export async function register(user) {
@@ -34,4 +37,37 @@ export async function logout(token) {
             'user-token': token
         }
     });
+}
+
+export async function createIdea(token, idea) {
+    return await (await fetch(url + endpoints.idea, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(idea)
+    })).json();
+}
+
+export async function editIdea(token, ideaId, idea) {
+    const ideaURL = url + endpoints.idea + `/${ideaId}`;
+
+    return await (await fetch(ideaURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(idea)
+    })).json();
+}
+
+export async function getAllIdeas(token) {
+
+    return (await fetch(url + endpoints.idea, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
 }

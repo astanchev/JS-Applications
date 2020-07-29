@@ -2,6 +2,12 @@ import * as data from '../repository/data.js';
 import * as notifications from '../helpers/notifications.js';
 
 export async function registerGet() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     this.partials = {
         header: (await this.load('../../templates/common/header.hbs')),
         footer: (await this.load('../../templates/common/footer.hbs'))
@@ -11,6 +17,12 @@ export async function registerGet() {
 }
 
 export async function registerPost() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     if (this.params.email.length === 0 || !(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/gim).test(this.params.email)) {
         notifications.showError('Email is required and should be valid!');
         return;
@@ -47,6 +59,12 @@ export async function registerPost() {
 }
 
 export async function loginGet() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     this.partials = {
         header: (await this.load('../../templates/common/header.hbs')),
         footer: (await this.load('../../templates/common/footer.hbs'))
@@ -56,6 +74,12 @@ export async function loginGet() {
 }
 
 export async function loginPost() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     const user = {
         login: this.params.email,
         password: this.params.password

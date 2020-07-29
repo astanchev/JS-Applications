@@ -1,5 +1,6 @@
 import * as home from './controllers/home.js';
 import * as users from './controllers/users.js';
+import * as idea from './controllers/idea.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
@@ -32,6 +33,13 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/logout', users.logout);
+
+
+        this.get('#/idea/create', idea.createGet);
+        this.post('#/idea/create', (ctx) => {
+            idea.createPost.call(ctx);
+        });
+
 
     });
 
