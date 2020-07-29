@@ -71,3 +71,13 @@ export async function getAllIdeas(token) {
         }
     })).json();
 }
+
+export async function getMyIdeas(token, userId) {
+    const whereURL = url + endpoints.idea + `?where=ownerId%3D%27${userId}%27`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}

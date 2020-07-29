@@ -141,3 +141,39 @@ export async function logout() {
         this.redirect('#/home');
     }
 }
+
+export async function profile() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        this.redirect('#/home');
+        return;
+    }
+
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
+    };
+
+    let ideas = [];
+
+    try {
+        notifications.showLoader();
+        ideas = (await data.getMyIdeas(token, this.app.userData.userId));
+        if (ideas.code) {
+            throw ideas;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+
+    const renderData = {
+        ideas: ideas.map(i => i.title),
+        count: ideas.length
+    };
+
+    Object.assign(renderData, this.app.userData);
+
+    this.partial('../../templates/user/profile.hbs', renderData);
+}

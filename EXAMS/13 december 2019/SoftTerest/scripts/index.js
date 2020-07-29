@@ -33,6 +33,7 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/logout', users.logout);
+        this.get('#/profile', users.profile);
 
 
         this.get('#/idea/create', idea.createGet);
