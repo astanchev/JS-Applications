@@ -50,6 +50,17 @@ export async function createIdea(token, idea) {
     })).json();
 }
 
+export async function createComment(token, comment) {
+    return await (await fetch(url + endpoints.comment, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(comment)
+    })).json();
+}
+
 export async function editIdea(token, ideaId, idea) {
     const ideaURL = url + endpoints.idea + `/${ideaId}`;
 
@@ -107,7 +118,7 @@ export async function deleteIdea(token, ideaId) {
 
     const ideaURL = url + endpoints.idea + `/${ideaId}`;
 
-    const ideaDeleteTime =  await (await fetch(ideaURL, {
+    const ideaDeleteTime = await (await fetch(ideaURL, {
         method: 'delete',
         headers: {
             'user-token': token
@@ -144,12 +155,33 @@ export async function likeIdea(token, ideaId) {
         }
     })).json();
 
+    if (idea.ownerId === localStorage.userId) {
+        throw new Error('You can not like your idea!');
+    }
+
     return await (await fetch(ideaURL, {
         method: 'put',
         headers: {
             'Content-type': 'application/json',
             'user-token': token
         },
-        body: JSON.stringify({likes: Number(idea.likes) + 1})
+        body: JSON.stringify({
+            likes: Number(idea.likes) + 1
+        })
+    })).json();
+}
+
+export async function addComment(token, ideaId, comment) {
+    const urlIdeaWithComments = url + endpoints.idea + `/${ideaId}/comments`;
+
+    const newComment = await createComment(token, comment);
+
+    return await (await fetch(urlIdeaWithComments, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify([newComment.objectId])
     })).json();
 }

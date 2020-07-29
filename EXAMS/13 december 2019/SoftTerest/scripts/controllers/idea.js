@@ -220,3 +220,36 @@ export async function like() {
         notifications.showError(error.message);
     }
 }
+
+export async function comment() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    if (this.params.newComment.trim() === '') {
+        return;
+    }
+
+
+    const comment = {
+        user: this.app.userData.email,
+        text: this.params.newComment
+    };
+
+    try {
+        notifications.showLoader();
+        const numberComments = await data.addComment(token, this.params.id, comment);
+        if (numberComments.code) {
+            throw numberComments;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('You commented successfully!');
+        this.redirect('#/idea/details/' + `${this.params.id}`);
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}
