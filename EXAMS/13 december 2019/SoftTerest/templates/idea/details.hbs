@@ -1,28 +1,32 @@
 {{>header}}
 <div class="container home some">
-    <img class="det-img" src="./images/dinner.jpg" />
+    <img class="det-img" src="{{image}}" />
     <div class="desc">
-        <h2 class="display-5">Dinner Recipe</h2>
+        <h2 class="display-5">{{title}}</h2>
         <p class="infoType">Description:</p>
-        <p class="idea-description">There are few things as comforting as heaping bowl of pasta at the end of a long
-            day. With so many easy pasta recipes out there, there's something for every palate to love. That's why pasta
-            makes such a quick, easy dinner for your family—it's likely to satisfy everyone's cravings, due to its
-            versatility.</p>
-        <p class="infoType">Likes: <large>2</large>
+        <p class="idea-description">{{description}}</p>
+        <p class="infoType">Likes: <large>{{likes}}</large>
         </p>
         <p class="infoType">Comments:</p>
         <ul>
-            <li class="comment">Jonh: I really like this idea :)</li>
+            {{#each comments}}
+            <li class="comment">{{user}}: {{text}}</li>
+            {{else}}
             <li class="comment">No comments yet :(</li>
+            {{/each}}
         </ul>
     </div>
+    {{#if isCreator}}
     <div class="text-center">
-        <a class="btn detb" href="">Delete</a>
+        <a class="btn detb edit-btn" href="">Edit</a>
+        <a class="btn detb del-btn" href="">Delete</a>
     </div>
+    {{else}}
     <form class="text-center" method="" action="">
         <textarea class="textarea-det" name="newComment" id=""></textarea>
-        <button type="submit" class="btn detb">Comment</button>
-        <a class="btn detb" href="">Like</a>
+        <button type="submit" class="btn detb com-btn">Comment</button>
+        <a class="btn detb like-btn" href="">Like</a>
     </form>
+    {{/if}}
 </div>
 {{>footer}}

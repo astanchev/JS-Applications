@@ -41,6 +41,7 @@ window.addEventListener('load', () => {
             idea.createPost.call(ctx);
         });
 
+        this.get('#/idea/details/:id', idea.details);
 
     });
 

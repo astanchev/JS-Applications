@@ -81,3 +81,14 @@ export async function getMyIdeas(token, userId) {
         }
     })).json();
 }
+
+export async function getIdeaById(token, ideaId) {
+    const urlIdea = url + endpoints.idea + `/${ideaId}` + endpoints.comments;
+
+    return await (await fetch(urlIdea, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}

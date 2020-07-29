@@ -65,3 +65,37 @@ export async function createPost() {
         notifications.showError(error.message);
     }
 }
+
+export async function details() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
+    };
+
+    let idea = {};
+
+    try {
+        notifications.showLoader();
+        idea = await data.getIdeaById(token, this.params.id);
+        if (idea.code) {
+            throw idea;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+
+    let isCreator = idea.ownerId === this.app.userData.userId ? true : false;
+
+    Object.assign(idea, this.app.userData, {isCreator});
+
+    this.partial('../../templates/idea/details.hbs', idea);
+}

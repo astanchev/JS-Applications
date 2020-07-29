@@ -1,12 +1,13 @@
-.form-control{
-  
+.form-control {}
+
+.form-label-group label {
+  margin: 1em;
 }
-.form-label-group label{
-  margin:1em;
+
+.idea-description {
+  width: 350px;
 }
-.idea-description{
-  width:350px;
-}
+
 .responsive-ideas {
   width: 100%;
   max-width: 400px;
@@ -16,71 +17,84 @@
 textarea.form-control {
   height: 200;
 }
+
 .form-idea {
   color: white;
   height: 80%;
 }
 
-.image-holder{
+.image-holder {
   align-content: center;
 }
 
-.overflow-hidden { overflow: hidden; }
-.infoType{
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.infoType {
   text-decoration: underline;
 }
-.details-img{
+
+.details-img {
   width: 40%;
   height: auto;
   margin: 0 auto;
   transform: none;
-  border:1px solid black;
+  border: 1px solid black;
 }
 
-.det{
-  color:white;
+.det {
+  color: white;
 }
-.comment{
+
+.comment {
   list-style-type: none;
   padding: 1%;
 }
 
-.btn-something{
-    width: 40%;
-    margin: 10px;
-    color: white;
-    display: inline-block;
+.btn-something {
+  width: 40%;
+  margin: 10px;
+  color: white;
+  display: inline-block;
 }
-.btn-holder{
+
+.btn-holder {
   width: 60%;
   margin-left: inherit;
 }
-.del-btn{
-  margin-top: 10%;
-    background-color: rgba(240, 73, 73, 0.924);
-    width: 100%;
-}
-.like-btn{
-    background-color: rgba(42, 99, 54, 0.719);
-}
-.com-btn{
-    background-color: rgba(26, 49, 83, 0.924);
+
+.del-btn {
+  background-color: rgba(240, 73, 73, 0.924);
 }
 
-.desc{
-  margin:2%;
+.edit-btn {
+  background-color: rgba(98, 73, 240, 0.924);
+}
+
+.like-btn {
+  background-color: rgba(42, 99, 54, 0.719);
+}
+
+.com-btn {
+  background-color: rgba(26, 49, 83, 0.924);
+}
+
+.desc {
+  margin: 2%;
   display: inline-block;
   width: 40%;
   vertical-align: top;
   color: white;
 }
-.det-img{
+
+.det-img {
   margin: 1em;
-    width: 35%;
-    transform: none;
-    border:1px solid black;
-}
-.detb{
-  margin: 10px;
+  width: 35%;
+  transform: none;
+  border: 1px solid black;
 }
 
+.detb {
+  margin: 10px;
+}
