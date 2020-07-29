@@ -11,7 +11,7 @@ export function showError(message) {
     notifications.error.children[0].textContent = message;
     notifications.error.style.display = 'block';
 
-    setTimeout(() => hideNotification(notifications.error), 5000);
+    // setTimeout(() => hideNotification(notifications.error), 5000);
 }
 
 export function showInfo(message) {
