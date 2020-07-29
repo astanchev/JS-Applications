@@ -18,14 +18,14 @@
     </div>
     {{#if isCreator}}
     <div class="text-center">
-        <a class="btn detb edit-btn" href="">Edit</a>
-        <a class="btn detb del-btn" href="">Delete</a>
+        <a class="btn detb edit-btn" href="#/idea/edit/{{objectId}}">Edit</a>
+        <a class="btn detb del-btn" href="#/idea/delete/{{objectId}}">Delete</a>
     </div>
     {{else}}
-    <form class="text-center" method="" action="">
+    <form class="text-center" method="POST" action="#/idea/comment/{{objectId}}">
         <textarea class="textarea-det" name="newComment" id=""></textarea>
         <button type="submit" class="btn detb com-btn">Comment</button>
-        <a class="btn detb like-btn" href="">Like</a>
+        <a class="btn detb like-btn" href="#/idea/like/{{objectId}}">Like</a>
     </form>
     {{/if}}
 </div>

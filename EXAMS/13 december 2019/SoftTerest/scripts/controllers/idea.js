@@ -25,8 +25,8 @@ export async function createPost() {
         return;
     }
 
-    if (this.params.title < 6) {
-        notifications.showError('Idea title should be at least 6 symbols');
+    if (this.params.title < 3) {
+        notifications.showError('Idea title should be at least 3 symbols');
         return;
     }
 
@@ -39,7 +39,6 @@ export async function createPost() {
         notifications.showError('Idea description should be at least 10 symbols');
         return;
     }
-
 
     const idea = {
         title: this.params.title,
@@ -98,4 +97,80 @@ export async function details() {
     Object.assign(idea, this.app.userData, {isCreator});
 
     this.partial('../../templates/idea/details.hbs', idea);
+}
+
+export async function editGet() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
+    };
+
+    let idea = {};
+
+    try {
+        notifications.showLoader();
+        idea = await data.getIdeaById(token, this.params.id);
+        if (idea.code) {
+            throw idea;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+
+    Object.assign(idea, this.app.userData);
+
+    this.partial('../../templates/idea/edit.hbs', idea);
+}
+
+export async function editPost() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    if (this.params.title < 3) {
+        notifications.showError('Idea title should be at least 3 symbols');
+        return;
+    }
+
+    if (this.params.image.length < 0 || (!this.params.image.startsWith(`http://`) && !this.params.image.startsWith(`https://`))) {
+        notifications.showError('Idea image should starts with "http://" or "https://"');
+        return;
+    }
+
+    if (this.params.description.length < 10) {
+        notifications.showError('Idea description should be at least 10 symbols');
+        return;
+    }
+
+    const idea = {
+        title: this.params.title,
+        description: this.params.description,
+        image: this.params.image
+    };
+
+    try {
+        notifications.showLoader();
+        const updatedIdea = await data.editIdea(token, this.params.id, idea);
+        if (updatedIdea.code) {
+            throw updatedIdea;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Idea updated successfully!');
+        this.redirect('#/dashboard');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
 }

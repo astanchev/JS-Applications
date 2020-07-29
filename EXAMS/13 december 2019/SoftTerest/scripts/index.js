@@ -41,7 +41,19 @@ window.addEventListener('load', () => {
             idea.createPost.call(ctx);
         });
 
+        this.get('#/idea/edit/:id', idea.editGet);
+        this.post('#/idea/edit/:id', (ctx) => {
+            idea.editPost.call(ctx);
+        });
+
+        this.post('#/idea/comment/:id', (ctx) => {
+            idea.comment.call(ctx);
+        });
+
         this.get('#/idea/details/:id', idea.details);
+        this.get('#/idea/delete/:id', idea.delete);
+        this.get('#/idea/like/:id', idea.like);
+
 
     });
 

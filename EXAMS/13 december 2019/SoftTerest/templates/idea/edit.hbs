@@ -2,25 +2,25 @@
 <div class="container home wrapper  my-md-5 pl-md-5">
     <div class=" d-md-flex flex-mb-equal ">
         <div class="col-md-6">
-            <img class="responsive-ideas create" src="../../images/pallet-judi-krew.jpg" alt="">
+            <img class="responsive-ideas create" src="{{image}}" alt="">
         </div>
-        <form class="form-idea col-md-5" action="#/idea/edit" method="POST">
+        <form class="form-idea col-md-5" action="#/idea/edit/{{objectId}}" method="POST">
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 font-weight-normal">Edit Your Idea</h1>
             </div>
             <div class="form-label-group">
                 <label for="ideaTitle">Title</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="What is your idea?"
+                <input type="text" id="title" name="title" class="form-control" value="{{title}}" placeholder="What is your idea?"
                     required="" autofocus="">
             </div>
             <div class="form-label-group">
                 <label for="ideaDescription">Description</label>
                 <textarea type="text" name="description" class="form-control" placeholder="Description"
-                    required=""></textarea>
+                    required="">{{description}}</textarea>
             </div>
             <div class="form-label-group">
                 <label for="inputURL">Add Image</label>
-                <input type="text" id="imageURl" name="image" class="form-control" placeholder="Image URL"
+                <input type="text" id="imageURl" name="image" value="{{image}}" class="form-control" placeholder="Image URL"
                     required="">
 
             </div>
