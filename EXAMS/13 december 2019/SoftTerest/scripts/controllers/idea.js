@@ -174,3 +174,26 @@ export async function editPost() {
         notifications.showError(error.message);
     }
 }
+
+export async function deleteIdea() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    try {
+        notifications.showLoader();
+        const deletedTime = await data.deleteIdea(token, this.params.id);
+        if (deletedTime.code) {
+            throw deletedTime;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Idea removed successfully!');
+        this.redirect('#/dashboard');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}

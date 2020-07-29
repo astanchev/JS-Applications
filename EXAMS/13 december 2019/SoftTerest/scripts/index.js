@@ -51,7 +51,7 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/idea/details/:id', idea.details);
-        this.get('#/idea/delete/:id', idea.delete);
+        this.get('#/idea/delete/:id', idea.deleteIdea);
         this.get('#/idea/like/:id', idea.like);
 
 

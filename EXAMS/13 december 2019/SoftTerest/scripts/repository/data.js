@@ -92,3 +92,44 @@ export async function getIdeaById(token, ideaId) {
         }
     })).json();
 }
+
+export async function deleteIdea(token, ideaId) {
+    const urlIdeaWithComments = url + endpoints.idea + `/${ideaId}` + endpoints.comments;
+
+    const ideaWithComments = await (await fetch(urlIdeaWithComments, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+
+    let ideaComments = ideaWithComments.comments.map(c => c.objectId);
+
+    const ideaURL = url + endpoints.idea + `/${ideaId}`;
+
+    const ideaDeleteTime =  await (await fetch(ideaURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+
+    if (ideaComments.length > 0) {
+        for (const c of ideaComments) {
+            await deleteComment(token, c);
+        }
+    }
+
+    return ideaDeleteTime;
+}
+
+export async function deleteComment(token, commentId) {
+    const commentURL = url + endpoints.comment + `/${commentId}`;
+
+    return await (await fetch(commentURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
