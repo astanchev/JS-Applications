@@ -46,15 +46,13 @@ window.addEventListener('load', () => {
             idea.editPost.call(ctx);
         });
 
-        this.post('#/idea/comment/:id', (ctx) => {
-            idea.comment.call(ctx);
-        });
-
         this.get('#/idea/details/:id', idea.details);
         this.get('#/idea/delete/:id', idea.deleteIdea);
         this.get('#/idea/like/:id', idea.like);
 
-
+        this.post('#/idea/comment/:id', (ctx) => {
+            idea.comment.call(ctx);
+        });
     });
 
     app.run('/');

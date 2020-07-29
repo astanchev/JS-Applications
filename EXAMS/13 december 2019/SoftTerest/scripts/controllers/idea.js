@@ -197,3 +197,26 @@ export async function deleteIdea() {
         notifications.showError(error.message);
     }
 }
+
+export async function like() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
+
+    try {
+        notifications.showLoader();
+        const idea = await data.likeIdea(token, this.params.id);
+        if (idea.code) {
+            throw idea;
+        }
+        notifications.hideLoader();
+        notifications.showInfo(`You liked this idea!`);
+        this.redirect('#/idea/details/' + `${this.params.id}`);
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}

@@ -133,3 +133,23 @@ export async function deleteComment(token, commentId) {
         }
     })).json();
 }
+
+export async function likeIdea(token, ideaId) {
+    const ideaURL = url + endpoints.idea + `/${ideaId}`;
+
+    const idea = await (await fetch(ideaURL, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+
+    return await (await fetch(ideaURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({likes: Number(idea.likes) + 1})
+    })).json();
+}
