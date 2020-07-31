@@ -48,6 +48,19 @@ export async function createTrek(token, trek) {
     })).json();
 }
 
+export async function editTrek(token, trekId, trek) {
+    const trekURL = url + endpoints.trek + `/${trekId}`;
+
+    return await (await fetch(trekURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(trek)
+    })).json();
+}
+
 export async function getAllTreks(token) {
 
     return (await fetch(url + endpoints.trek, {

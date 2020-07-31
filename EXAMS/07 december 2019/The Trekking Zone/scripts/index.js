@@ -38,10 +38,10 @@ window.addEventListener('load', () => {
             trek.createPost.call(ctx);
         });
 
-        // this.get('#/trek/edit/:id', trek.editGet);
-        // this.post('#/trek/edit/:id', (ctx) => {
-        //     trek.editPost.call(ctx);
-        // });
+        this.get('#/trek/edit/:id', trek.editGet);
+        this.post('#/trek/edit/:id', (ctx) => {
+            trek.editPost.call(ctx);
+        });
 
         this.get('#/trek/details/:id', trek.details);
         // this.get('#/trek/delete/:id', trek.deleteIdea);

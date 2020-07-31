@@ -16,7 +16,7 @@
         </div>
         <div class="buttons-together">
             {{#if isCreator}}
-            <a class="a-button" href="#">
+            <a class="a-button" href="#/trek/edit/{{objectId}}">
                 <svg version="1.1" id="edit-button" width="30px" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 293.129 293.129"
                     style="enable-background:new 0 0 293.129 293.129;" xml:space="preserve">
@@ -38,7 +38,7 @@
                 </svg>
                 Edit the trek
             </a>
-            <a class="a-button" href="#">
+            <a class="a-button" href="#/trek/delete/{{objectId}}">
                 <svg version="1.1" width="30px" id="remove-button" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 507.2 507.2"
                     style="enable-background:new 0 0 507.2 507.2;" xml:space="preserve">
@@ -55,7 +55,7 @@
                 Close the trek
             </a>
             {{else}}
-            <a class="a-button" href="#">
+            <a class="a-button" href="#/trek/like/{{objectId}}">
                 <svg version="1.1" width="30px" id="like-button" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50"
                     style="enable-background:new 0 0 50 50;" xml:space="preserve">
