@@ -61,6 +61,17 @@ export async function editTrek(token, trekId, trek) {
     })).json();
 }
 
+export async function deleteTrek(token, trekId) {
+    const trekURL = url + endpoints.trek + `/${trekId}`;
+
+    return (await fetch(trekURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
 export async function likeTrek(token, trekId) {
     const trekURL = url + endpoints.trek + `/${trekId}`;
 
@@ -96,7 +107,7 @@ export async function getAllTreks(token) {
     })).json();
 }
 
-export async function getMys(token, userId) {
+export async function getMyTreks(token, userId) {
     const whereURL = url + endpoints.trek + `?where=ownerId%3D%27${userId}%27`;
 
     return (await fetch(whereURL, {

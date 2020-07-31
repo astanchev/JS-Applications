@@ -188,28 +188,28 @@ export async function editPost() {
     }
 }
 
-// export async function deleteIdea() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function deleteIdea() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const deletedTime = await data.deleteIdea(token, this.params.id);
-//         if (deletedTime.code) {
-//             throw deletedTime;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo('Idea removed successfully!');
-//         this.redirect('#/dashboard');
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    try {
+        notifications.showLoader();
+        const deletedTime = await data.deleteTrek(token, this.params.id);
+        if (deletedTime.code) {
+            throw deletedTime;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Trek removed successfully!');
+        this.redirect('#/home');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}
 
 export async function like() {
     const token = localStorage.getItem('userToken');
