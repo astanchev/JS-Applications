@@ -30,6 +30,7 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/logout', users.logout);
+        this.get('#/profile', users.profile);
     });
 
     app.run('/');

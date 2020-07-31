@@ -2,12 +2,6 @@ import * as data from '../repository/data.js';
 import * as notifications from '../helpers/notifications.js';
 
 export async function registerGet() {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-        this.redirect('#/dashboard');
-        return;
-    }
-
     this.partials = {
         header: (await this.load('../../templates/common/header.hbs')),
         footer: (await this.load('../../templates/common/footer.hbs'))
@@ -17,12 +11,6 @@ export async function registerGet() {
 }
 
 export async function registerPost() {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-        this.redirect('#/dashboard');
-        return;
-    }
-
     if (this.params.email.length === 0 || !(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/gim).test(this.params.email)) {
         notifications.showError('Email is required and should be valid!');
         return;
@@ -33,7 +21,7 @@ export async function registerPost() {
         return;
     }
 
-    if (this.params.password !== this.params.repeatPassword) {
+    if (this.params.password !== this.params.rePassword) {
         notifications.showError('Passwords don\'t match!');
         return;
     }
@@ -59,12 +47,6 @@ export async function registerPost() {
 }
 
 export async function loginGet() {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-        this.redirect('#/dashboard');
-        return;
-    }
-
     this.partials = {
         header: (await this.load('../../templates/common/header.hbs')),
         footer: (await this.load('../../templates/common/footer.hbs'))
@@ -74,13 +56,14 @@ export async function loginGet() {
 }
 
 export async function loginPost() {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-        this.redirect('#/dashboard');
+    if (this.params.email.length === 0 ||
+        !(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/gim).test(this.params.email) ||
+        this.params.password.length < 3) {
+        notifications.showError('Invalid credentials. Please retry your request with correct credentials.');
         return;
     }
 
-    const user = {
+   const user = {
         login: this.params.email,
         password: this.params.password
     };
@@ -102,7 +85,7 @@ export async function loginPost() {
 
         notifications.hideLoader();
         notifications.showInfo('Login successful.');
-        this.redirect('#/dashboard');
+        this.redirect('#/home');
     } catch (error) {
         notifications.hideLoader();
         notifications.showError(error.message);
@@ -145,6 +128,7 @@ export async function logout() {
 export async function profile() {
     const token = localStorage.getItem('userToken');
     if (!token) {
+        notifications.showError('User is not logged in');
         this.redirect('#/home');
         return;
     }
@@ -154,13 +138,13 @@ export async function profile() {
         footer: (await this.load('../../templates/common/footer.hbs'))
     };
 
-    let ideas = [];
+    let treks = [];
 
     try {
         notifications.showLoader();
-        ideas = (await data.getMyIdeas(token, this.app.userData.userId));
-        if (ideas.code) {
-            throw ideas;
+        treks = (await data.getMyTreks(token, this.app.userData.userId));
+        if (treks.code) {
+            throw treks;
         }
         notifications.hideLoader();
     } catch (error) {
@@ -169,8 +153,8 @@ export async function profile() {
     }
 
     const renderData = {
-        ideas: ideas.map(i => i.title),
-        count: ideas.length
+        treks: treks.map(t => t.title),
+        count: treks.length
     };
 
     Object.assign(renderData, this.app.userData);
