@@ -61,6 +61,32 @@ export async function editTrek(token, trekId, trek) {
     })).json();
 }
 
+export async function likeTrek(token, trekId) {
+    const trekURL = url + endpoints.trek + `/${trekId}`;
+
+    const trek = await (await fetch(trekURL, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+
+    if (trek.ownerId === localStorage.userId) {
+        throw new Error('You can not like your trek!');
+    }
+
+    return await (await fetch(trekURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({
+            likes: Number(trek.likes) + 1
+        })
+    })).json();
+}
+
 export async function getAllTreks(token) {
 
     return (await fetch(url + endpoints.trek, {

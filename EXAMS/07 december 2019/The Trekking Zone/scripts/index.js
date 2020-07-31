@@ -45,7 +45,7 @@ window.addEventListener('load', () => {
 
         this.get('#/trek/details/:id', trek.details);
         // this.get('#/trek/delete/:id', trek.deleteIdea);
-        // this.get('#/trek/like/:id', trek.like);
+        this.get('#/trek/like/:id', trek.like);
     });
 
     app.run('/');

@@ -211,25 +211,25 @@ export async function editPost() {
 //     }
 // }
 
-// export async function like() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function like() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const idea = await data.likeIdea(token, this.params.id);
-//         if (idea.code) {
-//             throw idea;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo(`You liked this idea!`);
-//         this.redirect('#/idea/details/' + `${this.params.id}`);
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    try {
+        notifications.showLoader();
+        const trek = await data.likeTrek(token, this.params.id);
+        if (trek.code) {
+            throw trek;
+        }
+        notifications.hideLoader();
+        notifications.showInfo(`You liked this trek!`);
+        this.redirect('#/trek/details/' + `${this.params.id}`);
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}
