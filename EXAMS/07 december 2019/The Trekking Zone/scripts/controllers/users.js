@@ -153,7 +153,7 @@ export async function profile() {
     }
 
     const renderData = {
-        treks: treks.map(t => t.title),
+        treks: treks.map(t => t.name),
         count: treks.length
     };
 

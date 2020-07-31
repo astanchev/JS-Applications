@@ -139,12 +139,12 @@ export async function editPost() {
         return;
     }
 
-    if (this.params.title < 3) {
+    if (this.params.title.length < 3) {
         notifications.showError('Idea title should be at least 3 symbols');
         return;
     }
 
-    if (this.params.image.length < 0 || (!this.params.image.startsWith(`http://`) && !this.params.image.startsWith(`https://`))) {
+    if (this.params.image.length === 0 || (!this.params.image.startsWith(`http://`) && !this.params.image.startsWith(`https://`))) {
         notifications.showError('Idea image should starts with "http://" or "https://"');
         return;
     }

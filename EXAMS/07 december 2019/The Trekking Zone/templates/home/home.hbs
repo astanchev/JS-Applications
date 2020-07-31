@@ -1,5 +1,6 @@
 {{>header}}
 
+{{#unless userId}}
 <div class="home d-md-flex flex-md-equal  my-md-3 pl-md-3">
     <div style=" padding-left: 7%; padding-top:3%;" class="col-md-7">
         <h2 class="featurette-heading">Here you will find the treks you've <span class="text-highlighted">always dreamed
@@ -13,5 +14,12 @@
         <img class="home-picture" src="./images/mountainLogo.png" />
     </div>
 </div>
+{{else}}
+    {{#if treks}}
+        {{>listTreks}}
+    {{else}}
+        {{>noTreks}}
+    {{/if}}
+{{/unless}}
 
 {{>footer}}

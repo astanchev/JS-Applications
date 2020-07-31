@@ -1,5 +1,6 @@
 import home from './controllers/home.js';
 import * as users from './controllers/users.js';
+import * as trek from './controllers/trek.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
@@ -31,6 +32,20 @@ window.addEventListener('load', () => {
 
         this.get('#/logout', users.logout);
         this.get('#/profile', users.profile);
+
+        this.get('#/trek/create', trek.createGet);
+        this.post('#/trek/create', (ctx) => {
+            trek.createPost.call(ctx);
+        });
+
+        // this.get('#/trek/edit/:id', trek.editGet);
+        // this.post('#/trek/edit/:id', (ctx) => {
+        //     trek.editPost.call(ctx);
+        // });
+
+        this.get('#/trek/details/:id', trek.details);
+        // this.get('#/trek/delete/:id', trek.deleteIdea);
+        // this.get('#/trek/like/:id', trek.like);
     });
 
     app.run('/');

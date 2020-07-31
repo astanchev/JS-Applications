@@ -4,7 +4,8 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
-    user: 'data/Users'
+    user: 'data/Users',
+    trek: 'data/Trek'
 };
 
 export async function register(user) {
@@ -34,4 +35,45 @@ export async function logout(token) {
             'user-token': token
         }
     });
+}
+
+export async function createTrek(token, trek) {
+    return await (await fetch(url + endpoints.trek, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(trek)
+    })).json();
+}
+
+export async function getAllTreks(token) {
+
+    return (await fetch(url + endpoints.trek, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getMys(token, userId) {
+    const whereURL = url + endpoints.trek + `?where=ownerId%3D%27${userId}%27`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function getTrekById(token, trekId) {
+    const urlTrek = url + endpoints.trek + `/${trekId}`;
+
+    return await (await fetch(urlTrek, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
 }

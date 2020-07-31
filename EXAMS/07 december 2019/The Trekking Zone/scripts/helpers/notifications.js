@@ -10,8 +10,6 @@ notifications.info.addEventListener('click', (e) => hideNotification(e.currentTa
 export function showError(message) {
     notifications.error.children[0].textContent = message;
     notifications.error.style.display = 'block';
-
-    setTimeout(() => hideNotification(notifications.error), 5000);
 }
 
 export function showInfo(message) {
