@@ -2,14 +2,27 @@ import * as data from '../repository/data.js';
 import * as notifications from '../helpers/notifications.js';
 
 export async function registerGet() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     this.partials = {
-        header: (await this.load('../../templates/common/header.hbs'))
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
     };
 
     this.partial('../../templates/user/register.hbs', this.app.userData);
 }
 
 export async function registerPost() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     if (this.params.email.length === 0 || !(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/gim).test(this.params.email)) {
         notifications.showError('Email is required and should be valid!');
         return;
@@ -46,14 +59,27 @@ export async function registerPost() {
 }
 
 export async function loginGet() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     this.partials = {
-        header: (await this.load('../../templates/common/header.hbs'))
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
     };
 
     this.partial('../../templates/user/login.hbs', this.app.userData);
 }
 
 export async function loginPost() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        this.redirect('#/dashboard');
+        return;
+    }
+
     const user = {
         login: this.params.email,
         password: this.params.password
@@ -76,7 +102,7 @@ export async function loginPost() {
 
         notifications.hideLoader();
         notifications.showInfo('Login successful.');
-        this.redirect('#/home');
+        this.redirect('#/dashboard');
     } catch (error) {
         notifications.hideLoader();
         notifications.showError(error.message);
@@ -114,4 +140,40 @@ export async function logout() {
         notifications.showError(error.message);
         this.redirect('#/home');
     }
+}
+
+export async function profile() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        this.redirect('#/home');
+        return;
+    }
+
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
+    };
+
+    let ideas = [];
+
+    try {
+        notifications.showLoader();
+        ideas = (await data.getMyIdeas(token, this.app.userData.userId));
+        if (ideas.code) {
+            throw ideas;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+
+    const renderData = {
+        ideas: ideas.map(i => i.title),
+        count: ideas.length
+    };
+
+    Object.assign(renderData, this.app.userData);
+
+    this.partial('../../templates/user/profile.hbs', renderData);
 }
