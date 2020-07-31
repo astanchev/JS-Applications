@@ -222,7 +222,7 @@ class Carousel extends HTMLElement {
         render(templateResult, root, { eventContext: this });
         this._updateScheduled = false;
 
-        // check if we have an element that is fading        
+        // check if we have an element that is fading
         const fadeEl = root.querySelector('.fade');
         if (!fadeEl) { return; }
 
@@ -234,7 +234,7 @@ class Carousel extends HTMLElement {
 
         // if we do schedule an update after the element has faded so we can remove the
         // .active and .fade classes from the element
-        // we don't want to directly access the element (fadeEl) and remove the class 
+        // we don't want to directly access the element (fadeEl) and remove the class
         // because this breaks the workflow which is (state change) -> (render changes)
         setTimeout(transitionSuccessful, ANIMATION_TIME);
 
