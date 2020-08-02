@@ -4,7 +4,10 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
-    user: 'data/Users'
+    user: 'data/Users',
+    cause: 'data/Cause',
+    donor: 'data/Donor',
+    donors: '?loadRelations=donors',
 };
 
 export async function register(user) {
@@ -36,16 +39,53 @@ export async function logout(token) {
     });
 }
 
-// export async function createTrek(token, trek) {
-//     return await (await fetch(url + endpoints.trek, {
-//         method: 'post',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify(trek)
-//     })).json();
-// }
+export async function createCause(token, cause) {
+    return await (await fetch(url + endpoints.cause, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(cause)
+    })).json();
+}
+
+export async function createDonor(token, donor) {
+    return await (await fetch(url + endpoints.donor, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(donor)
+    })).json();
+}
+
+export async function deleteDonor(token, donorId) {
+    const donorURL = url + endpoints.donor + `/${donorId}`;
+
+    return await (await fetch(donorURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+export async function addDonor(token, causeId, donor) {
+    const urlCauseWithDonors = url + endpoints.donor + `/${causeId}/donors`;
+
+    const newDonor = await createDonor(token, donor);
+
+    return await (await fetch(urlCauseWithDonors, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify([newDonor.objectId])
+    })).json();
+}
 
 // export async function editTrek(token, trekId, trek) {
 //     const trekURL = url + endpoints.trek + `/${trekId}`;

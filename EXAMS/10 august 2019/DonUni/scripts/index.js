@@ -1,5 +1,6 @@
 import home from './controllers/home.js';
 import * as users from './controllers/users.js';
+import * as cause from './controllers/cause.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
@@ -31,10 +32,10 @@ window.addEventListener('load', () => {
 
         this.get('#/logout', users.logout);
 
-        // this.get('#/cause/create', cause.createGet);
-        // this.post('#/cause/create', (ctx) => {
-        //     cause.createPost.call(ctx);
-        // });
+        this.get('#/cause/create', cause.createGet);
+        this.post('#/cause/create', (ctx) => {
+            cause.createPost.call(ctx);
+        });
 
         // this.get('#/cause/edit/:id', cause.editGet);
         // this.post('#/cause/edit/:id', (ctx) => {
