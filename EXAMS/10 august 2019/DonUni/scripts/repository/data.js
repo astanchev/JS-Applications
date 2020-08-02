@@ -137,32 +137,32 @@ export async function addDonor(token, causeId, donor) {
 //     })).json();
 // }
 
-// export async function getAllTreks(token) {
+export async function getAllCauses(token) {
 
-//     return (await fetch(url + endpoints.trek, {
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return (await fetch(url + endpoints.cause, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
 
-// export async function getMyTreks(token, userId) {
-//     const whereURL = url + endpoints.trek + `?where=ownerId%3D%27${userId}%27`;
+export async function getMyCauses(token, userId) {
+    const whereURL = url + endpoints.cause + `?where=ownerId%3D%27${userId}%27`;
 
-//     return (await fetch(whereURL, {
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
 
-// export async function getTrekById(token, trekId) {
-//     const urlTrek = url + endpoints.trek + `/${trekId}`;
+export async function getCauseById(token, causeId) {
+    const urlCause = url + endpoints.cause + `/${causeId}` + endpoints.donors;
 
-//     return await (await fetch(urlTrek, {
-//         method: 'get',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return await (await fetch(urlTrek, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}

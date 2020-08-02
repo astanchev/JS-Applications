@@ -1,4 +1,5 @@
 import home from './controllers/home.js';
+import dashboard from './controllers/dashboard.js';
 import * as users from './controllers/users.js';
 import * as cause from './controllers/cause.js';
 import * as notifications from './helpers/notifications.js';
@@ -19,6 +20,8 @@ window.addEventListener('load', () => {
         this.get('index.html', home);
         this.get('#/home', home);
         this.get('/', home);
+
+        this.get('#/dashboard', dashboard);
 
         this.get('#/register', users.registerGet);
         this.post('#/register', (ctx) => {
