@@ -45,7 +45,7 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/cause/details/:id', cause.details);
-        // this.get('#/cause/delete/:id', cause.deleteIdea);
+        this.get('#/cause/delete/:id', cause.deleteCause);
     });
 
     app.run('/');

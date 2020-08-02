@@ -124,7 +124,7 @@ export async function Donate() {
     }
 
     if (Number(this.params.current) >= Number(this.params.needed)) {
-        notifications.showInfo(`You collected the money for this cause!`);
+        notifications.showInfo(`The money for this cause are collected!`);
         document.querySelector('form').reset();
         return;
     }
@@ -149,25 +149,25 @@ export async function Donate() {
     }
 }
 
-// export async function deleteIdea() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function deleteCause() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const deletedTime = await data.deleteTrek(token, this.params.id);
-//         if (deletedTime.code) {
-//             throw deletedTime;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo('Trek removed successfully!');
-//         this.redirect('#/home');
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    try {
+        notifications.showLoader();
+        const deletedTime = await data.deleteCause(token, this.params.id);
+        if (deletedTime.code) {
+            throw deletedTime;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Cause closed successfully!');
+        this.redirect('#/dashboard');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}

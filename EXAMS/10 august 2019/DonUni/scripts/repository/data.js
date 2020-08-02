@@ -50,74 +50,22 @@ export async function createCause(token, cause) {
     })).json();
 }
 
-export async function createDonor(token, donor) {
-    return await (await fetch(url + endpoints.donor, {
-        method: 'post',
-        headers: {
-            'Content-type': 'application/json',
-            'user-token': token
-        },
-        body: JSON.stringify(donor)
-    })).json();
-}
-
-export async function deleteDonor(token, donorId) {
-    const donorURL = url + endpoints.donor + `/${donorId}`;
-
-    return await (await fetch(donorURL, {
-        method: 'delete',
-        headers: {
-            'user-token': token
-        }
-    })).json();
-}
-
-export async function updateDonor(token, donorId, money) {
-    const donorURL = url + endpoints.donor + `/${donorId}`;
-
-    const donor = (await fetch(donorURL, {
-        method: 'put',
-        headers: {
-            'Content-type': 'application/json',
-            'user-token': token
-        },
-        body: JSON.stringify({
-            donation: money
-        })
-    })).json();
-
-    return donor;
-}
-
-export async function getDonorByEmail(token, email) {
-    const whereURL = url + endpoints.donor + `?where=email%3D%27${email}%27`;
-
-    return (await fetch(whereURL, {
-        headers: {
-            'user-token': token
-        }
-    })).json();
-}
-
 export async function editCause(token, causeId, donor) {
     let donorFromDb = (await getDonorByEmail(token, donor.email))[0];
     const urlCauseWithDonors = url + endpoints.cause + `/${causeId}/donors`;
 
     if (donorFromDb === undefined) {
         donorFromDb = await createDonor(token, donor);
-        await (await fetch(urlCauseWithDonors, {
-            method: 'put',
-            headers: {
-                'Content-type': 'application/json',
-                'user-token': token
-            },
-            body: JSON.stringify([donorFromDb.objectId])
-        })).json();
     } else {
         donorFromDb = await updateDonor(token, donorFromDb.objectId, (donorFromDb.donation + donor.donation));
     }
 
     const cause = await getCauseById(token, causeId);
+
+    if (cause.donors.every(d => d.email !== donor.email)) {
+        await addDonorToCause(urlCauseWithDonors, token, donorFromDb);
+    }
+
     const causeURL = url + endpoints.cause + `/${causeId}`;
 
     return (await fetch(causeURL, {
@@ -132,30 +80,20 @@ export async function editCause(token, causeId, donor) {
     })).json();
 }
 
-// export async function deleteTrek(token, trekId) {
-//     const trekURL = url + endpoints.trek + `/${trekId}`;
+export async function deleteCause(token, causeId) {
+    const causeURL = url + endpoints.cause + `/${causeId}`;
 
-//     return (await fetch(trekURL, {
-//         method: 'delete',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
-
-export async function getAllCauses(token) {
-
-    return (await fetch(url + endpoints.cause, {
+    return (await fetch(causeURL, {
+        method: 'delete',
         headers: {
             'user-token': token
         }
     })).json();
 }
 
-export async function getMyCauses(token, userId) {
-    const whereURL = url + endpoints.cause + `?where=ownerId%3D%27${userId}%27`;
+export async function getAllCauses(token) {
 
-    return (await fetch(whereURL, {
+    return (await fetch(url + endpoints.cause, {
         headers: {
             'user-token': token
         }
@@ -172,3 +110,74 @@ export async function getCauseById(token, causeId) {
         }
     })).json();
 }
+
+async function createDonor(token, donor) {
+    return await (await fetch(url + endpoints.donor, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(donor)
+    })).json();
+}
+
+async function updateDonor(token, donorId, money) {
+    const donorURL = url + endpoints.donor + `/${donorId}`;
+
+    const donor = (await fetch(donorURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({
+            donation: money
+        })
+    })).json();
+
+    return donor;
+}
+
+async function getDonorByEmail(token, email) {
+    const whereURL = url + endpoints.donor + `?where=email%3D%27${email}%27`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
+
+async function addDonorToCause(urlCauseWithDonors, token, donorFromDb) {
+    await (await fetch(urlCauseWithDonors, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify([donorFromDb.objectId])
+    })).json();
+}
+
+// export async function getMyCauses(token, userId) {
+//     const whereURL = url + endpoints.cause + `?where=ownerId%3D%27${userId}%27`;
+
+//     return (await fetch(whereURL, {
+//         headers: {
+//             'user-token': token
+//         }
+//     })).json();
+// }
+
+// async function deleteDonor(token, donorId) {
+//     const donorURL = url + endpoints.donor + `/${donorId}`;
+
+//     return await (await fetch(donorURL, {
+//         method: 'delete',
+//         headers: {
+//             'user-token': token
+//         }
+//     })).json();
+// }
