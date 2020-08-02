@@ -1,4 +1,4 @@
-#notifications div {
+/* #notifications div {
     top: 4rem;
     position: absolute;
     border-radius: 7px;
@@ -11,7 +11,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-}
+} */
 
 td.description{
     width: 50%;
