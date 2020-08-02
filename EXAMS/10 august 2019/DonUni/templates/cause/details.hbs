@@ -35,7 +35,7 @@
                 {{#if isCreator}}
                 <a href="#/cause/delete/{{objectId}}" class="btn btn-danger">Close the cause</a>
                 {{else}}
-                <form method="post" action="#/cause/donate/{{objectId}}">
+                <form method="post" action="#/cause/donate/{{objectId}}?current={{collectedFunds}}&needed={{neededFunds}}">
                     <label class="grey-text font-weight-light">My donation: </label>
                     <input name="currentDonation" type="number" min="1" class="form-control" />
                     <button style="width: 100%;" class="btn btn-success" type="submit">Make the donation</button>

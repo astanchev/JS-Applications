@@ -72,33 +72,65 @@ export async function deleteDonor(token, donorId) {
     })).json();
 }
 
-export async function addDonor(token, causeId, donor) {
-    const urlCauseWithDonors = url + endpoints.donor + `/${causeId}/donors`;
+export async function updateDonor(token, donorId, money) {
+    const donorURL = url + endpoints.donor + `/${donorId}`;
 
-    const newDonor = await createDonor(token, donor);
-
-    return await (await fetch(urlCauseWithDonors, {
+    const donor = (await fetch(donorURL, {
         method: 'put',
         headers: {
             'Content-type': 'application/json',
             'user-token': token
         },
-        body: JSON.stringify([newDonor.objectId])
+        body: JSON.stringify({
+            donation: money
+        })
+    })).json();
+
+    return donor;
+}
+
+export async function getDonorByEmail(token, email) {
+    const whereURL = url + endpoints.donor + `?where=email%3D%27${email}%27`;
+
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
     })).json();
 }
 
-// export async function editTrek(token, trekId, trek) {
-//     const trekURL = url + endpoints.trek + `/${trekId}`;
+export async function editCause(token, causeId, donor) {
+    let donorFromDb = (await getDonorByEmail(token, donor.email))[0];
+    const urlCauseWithDonors = url + endpoints.cause + `/${causeId}/donors`;
 
-//     return await (await fetch(trekURL, {
-//         method: 'put',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify(trek)
-//     })).json();
-// }
+    if (donorFromDb === undefined) {
+        donorFromDb = await createDonor(token, donor);
+        await (await fetch(urlCauseWithDonors, {
+            method: 'put',
+            headers: {
+                'Content-type': 'application/json',
+                'user-token': token
+            },
+            body: JSON.stringify([donorFromDb.objectId])
+        })).json();
+    } else {
+        donorFromDb = await updateDonor(token, donorFromDb.objectId, (donorFromDb.donation + donor.donation));
+    }
+
+    const cause = await getCauseById(token, causeId);
+    const causeURL = url + endpoints.cause + `/${causeId}`;
+
+    return (await fetch(causeURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({
+            collectedFunds: (cause.collectedFunds + donor.donation)
+        })
+    })).json();
+}
 
 // export async function deleteTrek(token, trekId) {
 //     const trekURL = url + endpoints.trek + `/${trekId}`;
@@ -108,32 +140,6 @@ export async function addDonor(token, causeId, donor) {
 //         headers: {
 //             'user-token': token
 //         }
-//     })).json();
-// }
-
-// export async function likeTrek(token, trekId) {
-//     const trekURL = url + endpoints.trek + `/${trekId}`;
-
-//     const trek = await (await fetch(trekURL, {
-//         method: 'get',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-
-//     if (trek.ownerId === localStorage.userId) {
-//         throw new Error('You can not like your trek!');
-//     }
-
-//     return await (await fetch(trekURL, {
-//         method: 'put',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify({
-//             likes: Number(trek.likes) + 1
-//         })
 //     })).json();
 // }
 

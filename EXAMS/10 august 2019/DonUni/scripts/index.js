@@ -40,9 +40,9 @@ window.addEventListener('load', () => {
             cause.createPost.call(ctx);
         });
 
-        // this.post('#/cause/donate/:id', (ctx) => {
-        //     cause.Donate.call(ctx);
-        // });
+        this.post('#/cause/donate/:id', (ctx) => {
+            cause.Donate.call(ctx);
+        });
 
         this.get('#/cause/details/:id', cause.details);
         // this.get('#/cause/delete/:id', cause.deleteIdea);
