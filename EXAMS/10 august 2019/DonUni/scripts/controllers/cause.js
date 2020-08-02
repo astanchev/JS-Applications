@@ -68,73 +68,50 @@ export async function createPost() {
     }
 }
 
-// export async function details() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function details() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     this.partials = {
-//         header: (await this.load('../../templates/common/header.hbs')),
-//         footer: (await this.load('../../templates/common/footer.hbs'))
-//     };
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs'))
+    };
 
-//     let trek = {};
+    let causeFromDB = {};
 
-//     try {
-//         notifications.showLoader();
-//         trek = await data.getTrekById(token, this.params.id);
-//         if (trek.code) {
-//             throw trek;
-//         }
-//         notifications.hideLoader();
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
+    try {
+        notifications.showLoader();
+        causeFromDB = await data.getCauseById(token, this.params.id);
+        if (causeFromDB.code) {
+            throw causeFromDB;
+        }
+        notifications.hideLoader();
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
 
-//     let isCreator = trek.ownerId === this.app.userData.userId ? true : false;
+    let cause = {
+        name: causeFromDB.name,
+        image: causeFromDB.image,
+        description: causeFromDB.description,
+        collectedFunds: Number(causeFromDB.collectedFunds).toFixed(2),
+        neededFunds: Number(causeFromDB.neededFunds).toFixed(2),
+        donors: causeFromDB.donors.map(d => d.name),
+        objectId: causeFromDB.objectId,
+        isCreator: causeFromDB.ownerId === this.app.userData.userId ? true : false
+    };
 
-//     Object.assign(trek, this.app.userData, {isCreator});
+    Object.assign(cause, this.app.userData);
 
-//     this.partial('../../templates/trek/details.hbs', trek);
-// }
+    this.partial('../../templates/cause/details.hbs', cause);
+}
 
-// export async function editGet() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
-
-//     this.partials = {
-//         header: (await this.load('../../templates/common/header.hbs')),
-//         footer: (await this.load('../../templates/common/footer.hbs'))
-//     };
-
-//     let trek = {};
-
-//     try {
-//         notifications.showLoader();
-//         trek = await data.getTrekById(token, this.params.id);
-//         if (trek.code) {
-//             throw trek;
-//         }
-//         notifications.hideLoader();
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-
-//     Object.assign(trek, this.app.userData);
-
-//     this.partial('../../templates/trek/edit.hbs', trek);
-// }
-
-// export async function editPost() {
+// export async function Donate() {
 //     const token = localStorage.getItem('userToken');
 //     if (!token) {
 //         notifications.showError('User is not logged in');

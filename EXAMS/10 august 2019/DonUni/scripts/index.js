@@ -40,12 +40,11 @@ window.addEventListener('load', () => {
             cause.createPost.call(ctx);
         });
 
-        // this.get('#/cause/edit/:id', cause.editGet);
-        // this.post('#/cause/edit/:id', (ctx) => {
-        //     cause.editPost.call(ctx);
+        // this.post('#/cause/donate/:id', (ctx) => {
+        //     cause.Donate.call(ctx);
         // });
 
-        // this.get('#/cause/details/:id', cause.details);
+        this.get('#/cause/details/:id', cause.details);
         // this.get('#/cause/delete/:id', cause.deleteIdea);
     });
 

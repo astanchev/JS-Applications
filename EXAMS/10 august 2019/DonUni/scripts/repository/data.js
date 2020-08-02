@@ -159,7 +159,7 @@ export async function getMyCauses(token, userId) {
 export async function getCauseById(token, causeId) {
     const urlCause = url + endpoints.cause + `/${causeId}` + endpoints.donors;
 
-    return await (await fetch(urlTrek, {
+    return await (await fetch(urlCause, {
         method: 'get',
         headers: {
             'user-token': token
