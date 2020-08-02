@@ -1,7 +1,6 @@
 import { html, render } from './node_modules/lit-html/lit-html.js';
 import { repeat } from './node_modules/lit-html/directives/repeat.js';
 
-
 function getEditableListTemplate(context) {
   return html`<style>
     .container {
@@ -12,7 +11,6 @@ function getEditableListTemplate(context) {
         background: white;
         box-shadow: 0 0 0px 1px rgba(255, 255, 255, .4), 0 0 0px 3px #2c3033;
     }
-
     .editable-list-header {
         margin: 0;
         border-radius: 10px 10px 0 0px;
@@ -22,39 +20,31 @@ function getEditableListTemplate(context) {
         color: white;
         box-shadow: inset 0 -2px 3px 2px rgba(0, 0, 0, .4), 0 2px 2px 2px rgba(0, 0, 0, .4);
     }
-
     .editable-list {
         padding-left: 0;
     }
-
     .editable-list>li,
     .editable-list-add-container {
         display: flex;
         align-items: center;
     }
-
     .editable-list>li {
         justify-content: space-between;
         padding: 0 1em;
     }
-
     .editable-list-add-container {
         justify-content: space-evenly;
     }
-
     .editable-list>li:nth-child(odd) {
         background-color: rgb(229, 229, 234);
     }
-
     .editable-list>li:nth-child(even) {
         background-color: rgb(255, 255, 255);
     }
-
     .editable-list-add-container>label {
         font-weight: bold;
         text-transform: uppercase;
     }
-
     .icon {
         background: none;
         border: none;
@@ -65,11 +55,9 @@ function getEditableListTemplate(context) {
   </style>
   <article class="container">
     <h1 class="editable-list-header">TODO LIST TITLE</h1>
-
     <ul class="editable-list" @click=${context.deleteHandler}>
       ${repeat(context.items, context.itemKeyFn, context.itemRenderFn)}
     </ul>
-
     <div class="editable-list-add-container">
         <label>ADD NEW TODO</label>
         <input @input=${context.itemInputHandler} .value=${context.inputValue} class="add-new-list-item-input" type="text" />
@@ -104,7 +92,7 @@ class EditableList extends HTMLElement {
   deleteHandler({ target }) {
     if (!target.classList.contains('editable-list-remove-item')) { return; }
     const index = target.getAttribute('data-index');
-    this.items.splice(index, 1);
+    this.items = this.items.filter((_, i) => i === +index);
     this._update();
   }
 
@@ -122,7 +110,7 @@ class EditableList extends HTMLElement {
   itemRenderFn(item, index) {
     return html`<li>
         <p class="editable-list-item-value">${item.text}</p>
-        <button data-index=${index} class="editable-list-remove-item icon">&ominus;</button> 
+        <button data-index=${index} class="editable-list-remove-item icon">&ominus;</button>
     </li>
     `;
   }
