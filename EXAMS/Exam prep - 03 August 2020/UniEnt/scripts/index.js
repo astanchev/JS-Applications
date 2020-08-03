@@ -4,7 +4,7 @@ import * as event from './controllers/event.js';
 import * as notifications from './helpers/notifications.js';
 
 window.addEventListener('load', () => {
-    const app = Sammy('#root', function () {
+    const app = Sammy('body', function () {
         this.use('Handlebars', 'hbs');
 
         this.userData = {
