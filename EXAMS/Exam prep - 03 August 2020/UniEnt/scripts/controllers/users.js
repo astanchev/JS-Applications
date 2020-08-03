@@ -164,16 +164,12 @@ export async function profile() {
     let events = [];
 
     try {
-        //notifications.showLoader();
         events = (await data.getMyEvents(token, this.app.userData.userId));
         if (events.code) {
             throw events;
         }
-       // notifications.hideLoader();
     } catch (error) {
         alert(error.message);
-        // notifications.hideLoader();
-        // notifications.showError(error.message);
     }
 
     const renderData = {

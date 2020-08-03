@@ -14,17 +14,13 @@ export default async function () {
     const token = localStorage.getItem('userToken');
     if (token) {
         try {
-            //notifications.showLoader();
             renderData.events = (await data.getAllEvents(token))
                 .sort((i1, i2) => i2.participants - i1.participants);
             if (renderData.events.code) {
                 throw renderData.events;
             }
-            //notifications.hideLoader();
         } catch (error) {
             alert(error.message);
-            // notifications.hideLoader();
-            // notifications.showError(error.message);
         }
     }
 

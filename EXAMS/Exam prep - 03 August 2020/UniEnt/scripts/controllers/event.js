@@ -92,16 +92,12 @@ export async function details() {
     let event = {};
 
     try {
-        //notifications.showLoader();
         event = await data.getEventById(token, this.params.id);
         if (event.code) {
             throw event;
         }
-        //notifications.hideLoader();
     } catch (error) {
         alert(error.message);
-        //notifications.hideLoader();
-        //notifications.showError(error.message);
     }
 
     let isCreator = event.ownerId === this.app.userData.userId ? true : false;
@@ -128,16 +124,12 @@ export async function editGet() {
     let event = {};
 
     try {
-        //notifications.showLoader();
         event = await data.getEventById(token, this.params.id);
         if (event.code) {
             throw event;
         }
-        //notifications.hideLoader();
     } catch (error) {
         alert(error.message);
-        // notifications.hideLoader();
-        // notifications.showError(error.message);
     }
 
     Object.assign(event, this.app.userData);
