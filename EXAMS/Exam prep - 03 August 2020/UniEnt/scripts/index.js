@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
         //     trek.editPost.call(ctx);
         // });
 
-        // this.get('#/event/details/:id', event.details);
+        this.get('#/event/details/:id', event.details);
         // this.get('#/event/delete/:id', event.deleteIdea);
     });
 

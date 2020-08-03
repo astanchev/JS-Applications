@@ -57,6 +57,17 @@ export async function getAllEvents(token) {
     })).json();
 }
 
+export async function getEventById(token, eventId) {
+    const urlEvent = url + endpoints.event + `/${eventId}`;
+
+    return await (await fetch(urlEvent, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
+
 // export async function editTrek(token, trekId, trek) {
 //     const trekURL = url + endpoints.trek + `/${trekId}`;
 
@@ -117,13 +128,3 @@ export async function getAllEvents(token) {
 //     })).json();
 // }
 
-// export async function getTrekById(token, trekId) {
-//     const urlTrek = url + endpoints.trek + `/${trekId}`;
-
-//     return await (await fetch(urlTrek, {
-//         method: 'get',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }

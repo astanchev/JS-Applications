@@ -75,39 +75,41 @@ export async function createPost() {
     }
 }
 
-// export async function details() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function details() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     this.partials = {
-//         header: (await this.load('../../templates/common/header.hbs')),
-//         footer: (await this.load('../../templates/common/footer.hbs'))
-//     };
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs')),
+        notifications: (await this.load('../../templates/common/notifications.hbs'))
+    };
 
-//     let trek = {};
+    let event = {};
 
-//     try {
-//         notifications.showLoader();
-//         trek = await data.getTrekById(token, this.params.id);
-//         if (trek.code) {
-//             throw trek;
-//         }
-//         notifications.hideLoader();
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
+    try {
+        //notifications.showLoader();
+        event = await data.getEventById(token, this.params.id);
+        if (event.code) {
+            throw event;
+        }
+        //notifications.hideLoader();
+    } catch (error) {
+        alert(error.message);
+        //notifications.hideLoader();
+        //notifications.showError(error.message);
+    }
 
-//     let isCreator = trek.ownerId === this.app.userData.userId ? true : false;
+    let isCreator = event.ownerId === this.app.userData.userId ? true : false;
 
-//     Object.assign(trek, this.app.userData, {isCreator});
+    Object.assign(event, this.app.userData, {isCreator});
 
-//     this.partial('../../templates/trek/details.hbs', trek);
-// }
+    this.partial('../../templates/event/details.hbs', event);
+}
 
 // export async function editGet() {
 //     const token = localStorage.getItem('userToken');
