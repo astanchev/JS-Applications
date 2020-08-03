@@ -51,7 +51,7 @@ export async function createPost() {
     }
 
     const event = {
-        name: this.params.location,
+        name: this.params.name,
         dateTime: this.params.dateTime,
         description: this.params.description,
         image: this.params.imageURL,
