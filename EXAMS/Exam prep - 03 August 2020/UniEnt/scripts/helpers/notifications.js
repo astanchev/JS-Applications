@@ -1,33 +1,28 @@
-const notifications = {
-    info: document.querySelector('#infoBox'),
-    error: document.querySelector('#errorBox'),
-    loading: document.querySelector('#loadingBox')
-};
-
-notifications.error.addEventListener('click', (e) => hideNotification(e.currentTarget));
-notifications.info.addEventListener('click', (e) => hideNotification(e.currentTarget));
-
 export function showError(message) {
-    notifications.error.children[0].textContent = message;
-    notifications.error.style.display = 'block';
+    const error= document.querySelector('#errorBox');
+    error.textContent = message;
+    error.style.display = 'block';
+    error.addEventListener('click', (e) => hideNotification(e.currentTarget));
 }
 
 export function showInfo(message) {
-    notifications.info.children[0].textContent = message;
-    notifications.info.style.display = 'block';
+    const info = document.querySelector('#successBox');
+    info.textContent = message;
+    info.style.display = 'block';
+    info.addEventListener('click', (e) => hideNotification(e.currentTarget));
 
-    setTimeout(() => hideNotification(notifications.info), 5000);
+    setTimeout(() => hideNotification(info), 5000);
 }
 
 export function showLoader() {
-    notifications.loading.style.display = 'block';
+    document.querySelector('#loadingBox').style.display = 'block';
 }
 
 export function hideLoader() {
-    notifications.loading.style.display = 'none';
+    document.querySelector('#loadingBox').style.display = 'none';
 }
 
 function hideNotification(notification) {
-    notification.children[0].textContent = '';
+    notification.textContent = '';
     notification.style.display = 'none';
 }
