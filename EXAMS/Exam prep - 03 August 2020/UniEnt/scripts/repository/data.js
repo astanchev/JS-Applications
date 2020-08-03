@@ -92,39 +92,38 @@ export async function deleteEvent(token, eventId) {
     })).json();
 }
 
-// export async function likeTrek(token, trekId) {
-//     const trekURL = url + endpoints.trek + `/${trekId}`;
+export async function joinEvent(token, eventId) {
+    const eventURL = url + endpoints.event + `/${eventId}`;
 
-//     const trek = await (await fetch(trekURL, {
-//         method: 'get',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
+    const event = await (await fetch(eventURL, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
 
-//     if (trek.ownerId === localStorage.userId) {
-//         throw new Error('You can not like your trek!');
-//     }
+    if (event.ownerId === localStorage.userId) {
+        throw new Error('You can not join your event!');
+    }
 
-//     return await (await fetch(trekURL, {
-//         method: 'put',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify({
-//             likes: Number(trek.likes) + 1
-//         })
-//     })).json();
-// }
+    return await (await fetch(eventURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({
+            participants: Number(event.participants) + 1
+        })
+    })).json();
+}
 
-// export async function getMyTreks(token, userId) {
-//     const whereURL = url + endpoints.trek + `?where=ownerId%3D%27${userId}%27`;
+export async function getMyEvents(token, userId) {
+    const whereURL = url + endpoints.event + `?where=ownerId%3D%27${userId}%27`;
 
-//     return (await fetch(whereURL, {
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
-
+    return (await fetch(whereURL, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}

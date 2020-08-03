@@ -41,6 +41,7 @@ window.addEventListener('load', () => {
 
         this.get('#/event/details/:id', event.details);
         this.get('#/event/delete/:id', event.deleteEvent);
+        this.get('#/event/join/:id', event.joinEvent);
     });
 
     app.run('/');

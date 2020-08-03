@@ -222,25 +222,25 @@ export async function deleteEvent() {
     }
 }
 
-// export async function like() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function joinEvent() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const trek = await data.likeTrek(token, this.params.id);
-//         if (trek.code) {
-//             throw trek;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo(`You liked this trek!`);
-//         this.redirect('#/trek/details/' + `${this.params.id}`);
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    try {
+        notifications.showLoader();
+        const event = await data.joinEvent(token, this.params.id);
+        if (event.code) {
+            throw event;
+        }
+        notifications.hideLoader();
+        notifications.showInfo(`You joined this event!`);
+        this.redirect('#/event/details/' + `${this.params.id}`);
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}

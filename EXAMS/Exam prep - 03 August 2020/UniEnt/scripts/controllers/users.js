@@ -164,19 +164,20 @@ export async function profile() {
     let events = [];
 
     try {
-        notifications.showLoader();
-        events = (await data.getMyTreks(token, this.app.userData.userId));
+        //notifications.showLoader();
+        events = (await data.getMyEvents(token, this.app.userData.userId));
         if (events.code) {
             throw events;
         }
-        notifications.hideLoader();
+       // notifications.hideLoader();
     } catch (error) {
-        notifications.hideLoader();
-        notifications.showError(error.message);
+        alert(error.message);
+        // notifications.hideLoader();
+        // notifications.showError(error.message);
     }
 
     const renderData = {
-        treks: events.map(e => e.name),
+        events: events.map(e => e.name),
         count: events.length
     };
 
