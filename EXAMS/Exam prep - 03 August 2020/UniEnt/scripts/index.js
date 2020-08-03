@@ -34,10 +34,10 @@ window.addEventListener('load', () => {
             event.createPost.call(ctx);
         });
 
-        // this.get('#/event/edit/:id', event.editGet);
-        // this.post('#/event/edit/:id', (ctx) => {
-        //     trek.editPost.call(ctx);
-        // });
+        this.get('#/event/edit/:id', event.editGet);
+        this.post('#/event/edit/:id', (ctx) => {
+            event.editPost.call(ctx);
+        });
 
         this.get('#/event/details/:id', event.details);
         // this.get('#/event/delete/:id', event.deleteIdea);

@@ -68,18 +68,18 @@ export async function getEventById(token, eventId) {
     })).json();
 }
 
-// export async function editTrek(token, trekId, trek) {
-//     const trekURL = url + endpoints.trek + `/${trekId}`;
+export async function editEvent(token, eventId, event) {
+    const eventURL = url + endpoints.event + `/${eventId}`;
 
-//     return await (await fetch(trekURL, {
-//         method: 'put',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify(trek)
-//     })).json();
-// }
+    return await (await fetch(eventURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(event)
+    })).json();
+}
 
 // export async function deleteTrek(token, trekId) {
 //     const trekURL = url + endpoints.trek + `/${trekId}`;
