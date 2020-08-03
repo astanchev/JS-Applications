@@ -29,10 +29,10 @@ window.addEventListener('load', () => {
         this.get('#/logout', users.logout);
         this.get('#/profile', users.profile);
 
-        // this.get('#/event/create', event.createGet);
-        // this.post('#/event/create', (ctx) => {
-        //     event.createPost.call(ctx);
-        // });
+        this.get('#/event/create', event.createGet);
+        this.post('#/event/create', (ctx) => {
+            event.createPost.call(ctx);
+        });
 
         // this.get('#/event/edit/:id', event.editGet);
         // this.post('#/event/edit/:id', (ctx) => {

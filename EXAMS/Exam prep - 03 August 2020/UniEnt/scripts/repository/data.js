@@ -4,7 +4,8 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
-    user: 'data/Users'
+    user: 'data/Users',
+    event: 'data/Event'
 };
 
 export async function register(user) {
@@ -36,16 +37,16 @@ export async function logout(token) {
     });
 }
 
-// export async function createTrek(token, trek) {
-//     return await (await fetch(url + endpoints.trek, {
-//         method: 'post',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify(trek)
-//     })).json();
-// }
+export async function createEvent(token, event) {
+    return await (await fetch(url + endpoints.event, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(event)
+    })).json();
+}
 
 // export async function editTrek(token, trekId, trek) {
 //     const trekURL = url + endpoints.trek + `/${trekId}`;

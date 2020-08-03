@@ -17,14 +17,18 @@ export async function registerPost() {
         return;
     }
 
+    const errors = [];
+
     if (this.params.password.length < 6) {
-        notifications.showError('Password should be at least 6 symbols!');
-        return;
+        errors.push('Password should be at least 6 symbols!');
     }
 
     if (this.params.password !== this.params.rePassword) {
-        notifications.showError('Passwords don\'t match!');
-        return;
+        errors.push('Passwords don\'t match!');
+    }
+
+    if (errors.length > 0) {
+        errors.push(errors.join(' '));
     }
 
     const user = {
