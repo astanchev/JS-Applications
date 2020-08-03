@@ -40,7 +40,7 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/event/details/:id', event.details);
-        // this.get('#/event/delete/:id', event.deleteIdea);
+        this.get('#/event/delete/:id', event.deleteEvent);
     });
 
     app.run('/');

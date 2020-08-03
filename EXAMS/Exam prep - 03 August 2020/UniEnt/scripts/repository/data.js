@@ -81,16 +81,16 @@ export async function editEvent(token, eventId, event) {
     })).json();
 }
 
-// export async function deleteTrek(token, trekId) {
-//     const trekURL = url + endpoints.trek + `/${trekId}`;
+export async function deleteEvent(token, eventId) {
+    const eventURL = url + endpoints.event + `/${eventId}`;
 
-//     return (await fetch(trekURL, {
-//         method: 'delete',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return (await fetch(eventURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
 
 // export async function likeTrek(token, trekId) {
 //     const trekURL = url + endpoints.trek + `/${trekId}`;
