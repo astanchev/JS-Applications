@@ -29,7 +29,7 @@ export async function registerPost() {
         errors.push('Password should be at least 6 symbols!');
     }
 
-    if (this.params.password !== this.params.rePassword) {
+    if (this.params.password !== this.params.repeatPassword) {
         errors.push('Passwords don\'t match!');
     }
 
