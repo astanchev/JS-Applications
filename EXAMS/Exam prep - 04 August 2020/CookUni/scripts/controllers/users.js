@@ -14,6 +14,13 @@ export async function registerGet() {
 export async function registerPost() {
     const errors = [];
 
+    if (this.params.firstName.length < 2) {
+        errors.push('First name is required and should be at least 2 characters long!');
+    }
+    if (this.params.lastName.length < 2) {
+        errors.push('Last name is required and should be at least 2 characters long!');
+    }
+
     if (this.params.username.length < 3) {
         errors.push('Username is required and should be at least 3 characters long!');
     }
@@ -33,7 +40,9 @@ export async function registerPost() {
 
     const user = {
         username: this.params.username,
-        password: this.params.password
+        password: this.params.password,
+        firstName: this.params.firstName,
+        lastName: this.params.lastName,
     };
 
     try {
@@ -56,10 +65,12 @@ export async function registerPost() {
 
         this.app.userData.username = loggedUser.username;
         this.app.userData.userId = loggedUser.objectId;
+        this.app.userData.names = loggedUser.firstName + ' ' + loggedUser.lastName;
 
         localStorage.setItem('userToken', loggedUser['user-token']);
         localStorage.setItem('username', loggedUser.username);
         localStorage.setItem('userId', loggedUser.objectId);
+        localStorage.setItem('names', this.app.userData.names);
 
         notifications.hideLoader();
         notifications.showInfo('User registration successful.');
@@ -100,10 +111,12 @@ export async function loginPost() {
 
         this.app.userData.username = loggedUser.username;
         this.app.userData.userId = loggedUser.objectId;
+        this.app.userData.names = loggedUser.firstName + ' ' + loggedUser.lastName;
 
         localStorage.setItem('userToken', loggedUser['user-token']);
         localStorage.setItem('username', loggedUser.username);
         localStorage.setItem('userId', loggedUser.objectId);
+        localStorage.setItem('names', this.app.userData.names);
 
         notifications.hideLoader();
         notifications.showInfo('Login successful.');
@@ -132,10 +145,12 @@ export async function logout() {
 
         this.app.userData.username = '';
         this.app.userData.userId = '';
+        this.app.userData.names = '';
 
         localStorage.removeItem('userToken');
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
+        localStorage.removeItem('names');
 
         notifications.hideLoader();
         notifications.showInfo('Logout successful.');
@@ -145,39 +160,4 @@ export async function logout() {
         notifications.showError(error.message);
         this.redirect('#/home');
     }
-}
-
-export async function profile() {
-    const token = localStorage.getItem('userToken');
-    if (!token) {
-        notifications.showError('User is not logged in');
-        this.redirect('#/home');
-        return;
-    }
-
-    this.partials = {
-        header: (await this.load('../../templates/common/header.hbs')),
-        footer: (await this.load('../../templates/common/footer.hbs')),
-        notifications: (await this.load('../../templates/common/notifications.hbs'))
-    };
-
-    let events = [];
-
-    try {
-        events = (await data.getMyEvents(token, this.app.userData.userId));
-        if (events.code) {
-            throw events;
-        }
-    } catch (error) {
-        alert(error.message);
-    }
-
-    const renderData = {
-        events: events.map(e => e.name),
-        count: events.length
-    };
-
-    Object.assign(renderData, this.app.userData);
-
-    this.partial('../../templates/user/profile.hbs', renderData);
 }
