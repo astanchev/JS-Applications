@@ -92,28 +92,28 @@ export async function deleteRecipe(token, recipeId) {
     })).json();
 }
 
-// export async function joinEvent(token, eventId) {
-//     const eventURL = url + endpoints.event + `/${eventId}`;
+export async function likeRecipe(token, recipeId) {
+    const recipeURL = url + endpoints.recipe + `/${recipeId}`;
 
-//     const event = await (await fetch(eventURL, {
-//         method: 'get',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
+    const recipe = await (await fetch(recipeURL, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
 
-//     if (event.ownerId === localStorage.userId) {
-//         throw new Error('You can not join your event!');
-//     }
+    if (recipe.ownerId === localStorage.userId) {
+        throw new Error('You can not like your recipe!');
+    }
 
-//     return await (await fetch(eventURL, {
-//         method: 'put',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify({
-//             participants: Number(event.participants) + 1
-//         })
-//     })).json();
-// }
+    return await (await fetch(recipeURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify({
+            likes: Number(recipe.likes) + 1
+        })
+    })).json();
+}
