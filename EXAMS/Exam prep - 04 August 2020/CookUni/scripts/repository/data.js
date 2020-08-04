@@ -4,7 +4,8 @@ const endpoints = {
     register: 'users/register',
     login: 'users/login',
     logout: 'users/logout',
-    user: 'data/Users'
+    user: 'data/Users',
+    recipe: 'data/Recipe'
 };
 
 export async function register(user) {
@@ -36,16 +37,16 @@ export async function logout(token) {
     });
 }
 
-// export async function createEvent(token, event) {
-//     return await (await fetch(url + endpoints.event, {
-//         method: 'post',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify(event)
-//     })).json();
-// }
+export async function createRecipe(token, recipe) {
+    return await (await fetch(url + endpoints.recipe, {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(recipe)
+    })).json();
+}
 
 // export async function getAllEvents(token) {
 

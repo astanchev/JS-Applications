@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
         this.userData = {
             username: localStorage.username || '',
             userId: localStorage.userId || '',
-            names: localStorage.userId || ''
+            names: localStorage.names || ''
         };
 
         this.get('index.html', home);
@@ -28,10 +28,10 @@ window.addEventListener('load', () => {
 
         this.get('#/logout', users.logout);
 
-        // this.get('#/recipe/create', recipe.createGet);
-        // this.post('#/recipe/create', (ctx) => {
-        //     recipe.createPost.call(ctx);
-        // });
+        this.get('#/recipe/create', recipe.createGet);
+        this.post('#/recipe/create', (ctx) => {
+            recipe.createPost.call(ctx);
+        });
 
         // this.get('#/recipe/edit/:id', recipe.editGet);
         // this.post('#/recipe/edit/:id', (ctx) => {
