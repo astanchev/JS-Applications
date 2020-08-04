@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
         });
 
         this.get('#/recipe/details/:id', recipe.details);
-        // this.get('#/recipe/delete/:id', recipe.deleteRecipe);
+        this.get('#/recipe/delete/:id', recipe.deleteRecipe);
         // this.get('#/recipe/like/:id', recipe.likeRecipe);
     });
 

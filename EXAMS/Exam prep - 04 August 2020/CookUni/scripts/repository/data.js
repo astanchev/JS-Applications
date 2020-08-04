@@ -81,16 +81,16 @@ export async function editRecipe(token, recipeId, recipe) {
     })).json();
 }
 
-// export async function deleteEvent(token, eventId) {
-//     const eventURL = url + endpoints.event + `/${eventId}`;
+export async function deleteRecipe(token, recipeId) {
+    const recipeURL = url + endpoints.recipe + `/${recipeId}`;
 
-//     return (await fetch(eventURL, {
-//         method: 'delete',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return (await fetch(recipeURL, {
+        method: 'delete',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
 
 // export async function joinEvent(token, eventId) {
 //     const eventURL = url + endpoints.event + `/${eventId}`;
@@ -115,15 +115,5 @@ export async function editRecipe(token, recipeId, recipe) {
 //         body: JSON.stringify({
 //             participants: Number(event.participants) + 1
 //         })
-//     })).json();
-// }
-
-// export async function getMyEvents(token, userId) {
-//     const whereURL = url + endpoints.event + `?where=ownerId%3D%27${userId}%27`;
-
-//     return (await fetch(whereURL, {
-//         headers: {
-//             'user-token': token
-//         }
 //     })).json();
 // }

@@ -233,28 +233,28 @@ export async function editPost() {
     }
 }
 
-// export async function deleteEvent() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function deleteRecipe() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const deletedTime = await data.deleteEvent(token, this.params.id);
-//         if (deletedTime.code) {
-//             throw deletedTime;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo('Event closed successfully!');
-//         this.redirect('#/home');
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    try {
+        notifications.showLoader();
+        const deletedTime = await data.deleteRecipe(token, this.params.id);
+        if (deletedTime.code) {
+            throw deletedTime;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Your recipe was archived.');
+        this.redirect('#/home');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}
 
 // export async function joinEvent() {
 //     const token = localStorage.getItem('userToken');
