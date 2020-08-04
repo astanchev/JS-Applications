@@ -13,23 +13,10 @@ export default async function () {
     const token = localStorage.getItem('userToken');
     if (token) {
         try {
-            const recipes = await data.getAllRecipes(token);
-            if (recipes.code) {
-                throw recipes;
+            renderData.recipes = await data.getAllRecipes(token);
+            if (renderData.recipes.code) {
+                throw renderData.recipes;
             }
-
-            renderData.recipes = [];
-            recipes.forEach(r => renderData.recipes.push({
-                meal: r.meal,
-                category: r.category,
-                ingredients: r.ingredients.split(', '),
-                method: r.prepMethod,
-                description: r.description,
-                image: r.image,
-                categoryImageURL: r.categoryImageURL,
-                likes: r.likes,
-                objectId: r.objectId
-            }));
             renderData.recipes.sort((r1, r2) => r2.likes - r1.likes);
         } catch (error) {
             alert(error.message);

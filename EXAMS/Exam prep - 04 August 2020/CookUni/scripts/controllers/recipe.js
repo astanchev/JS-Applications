@@ -40,7 +40,7 @@ export async function createPost() {
         errors.push('Meal name should be at least 4 symbols');
     }
 
-    if (this.params.ingredients.length === 0 || this.params.ingredients.split(', ').length < 2) {
+    if (this.params.ingredients.length === 0 || this.params.ingredients.split(',').length < 2) {
         errors.push('Should be at least 2 ingredients');
     }
 
@@ -68,7 +68,7 @@ export async function createPost() {
     const recipe = {
         meal: this.params.meal,
         category: this.params.category,
-        ingredients: this.params.ingredients,
+        ingredients: this.params.ingredients.split(',').map(i => i.trim()),
         method: this.params.prepMethod,
         description: this.params.description,
         image: this.params.foodImageURL,
@@ -110,23 +110,10 @@ export async function details() {
     let recipe = {};
 
     try {
-        const recipeFromDB = await data.getRecipeById(token, this.params.id);
+        recipe = await data.getRecipeById(token, this.params.id);
         if (recipe.code) {
             throw recipe;
         }
-
-        recipe = {
-            meal: recipeFromDB.meal,
-            category: recipeFromDB.category,
-            ingredients: recipeFromDB.ingredients.split(', '),
-            method: recipeFromDB.prepMethod,
-            description: recipeFromDB.description,
-            image: recipeFromDB.image,
-            categoryImageURL: recipeFromDB.categoryImageURL,
-            likes: recipeFromDB.likes,
-            objectId: recipeFromDB.objectId,
-            ownerId: recipeFromDB.ownerId
-        };
     } catch (error) {
         alert(error.message);
     }
@@ -184,7 +171,7 @@ export async function editPost() {
         errors.push('Meal name should be at least 4 symbols');
     }
 
-    if (this.params.ingredients.length === 0 || this.params.ingredients.split(', ').length < 2) {
+    if (this.params.ingredients.length === 0 || this.params.ingredients.split(',').length < 2) {
         errors.push('Should be at least 2 ingredients');
     }
 
@@ -212,7 +199,7 @@ export async function editPost() {
     const recipe = {
         meal: this.params.meal,
         category: this.params.category,
-        ingredients: this.params.ingredients,
+        ingredients: this.params.ingredients.split(',').map(i => i.trim()),
         method: this.params.prepMethod,
         description: this.params.description,
         image: this.params.foodImageURL
