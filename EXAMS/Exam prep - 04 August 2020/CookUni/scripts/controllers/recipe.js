@@ -93,37 +93,51 @@ export async function createPost() {
     }
 }
 
-// export async function details() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function details() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     this.partials = {
-//         header: (await this.load('../../templates/common/header.hbs')),
-//         footer: (await this.load('../../templates/common/footer.hbs')),
-//         notifications: (await this.load('../../templates/common/notifications.hbs'))
-//     };
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs')),
+        notifications: (await this.load('../../templates/common/notifications.hbs'))
+    };
 
-//     let event = {};
+    let recipe = {};
 
-//     try {
-//         event = await data.getEventById(token, this.params.id);
-//         if (event.code) {
-//             throw event;
-//         }
-//     } catch (error) {
-//         alert(error.message);
-//     }
+    try {
+        const recipeFromDB = await data.getRecipeById(token, this.params.id);
+        if (recipe.code) {
+            throw recipe;
+        }
 
-//     let isCreator = event.ownerId === this.app.userData.userId ? true : false;
+        recipe = {
+            meal: recipeFromDB.meal,
+            category: recipeFromDB.category,
+            ingredients: recipeFromDB.ingredients.split(', '),
+            method: recipeFromDB.prepMethod,
+            description: recipeFromDB.description,
+            image: recipeFromDB.image,
+            categoryImageURL: recipeFromDB.categoryImageURL,
+            likes: recipeFromDB.likes,
+            objectId: recipeFromDB.objectId
+        };
+    } catch (error) {
+        alert(error.message);
+    }
 
-//     Object.assign(event, this.app.userData, {isCreator});
+    let isCreator = recipe.ownerId === this.app.userData.userId ? true : false;
 
-//     this.partial('../../templates/event/details.hbs', event);
-// }
+    Object.assign(recipe, this.app.userData, {
+        isCreator
+    });
+
+    this.partial('../../templates/recipe/details.hbs', recipe);
+}
 
 // export async function editGet() {
 //     const token = localStorage.getItem('userToken');

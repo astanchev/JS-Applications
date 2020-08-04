@@ -4,29 +4,30 @@
     <div class="col-md-12">
         <div class="recepieInfo">
             <div class="detailsFoodImage">
-                <img src="https://t3.ftcdn.net/jpg/00/25/90/48/240_F_25904887_fhZJ692ukng3vQxzHldvuN981OiYVlJ1.jpg"
-                    alt="">
+                <img src="{{image}}" alt="">
             </div>
 
             <div class="infoPack">
-                <h3 class="my-3">Meal Name</h3>
-                <p class="prep-method">Method of preparation...</p>
-                <p class="description">Description ...</p>
+                <h3 class="my-3">{{meal}}</h3>
+                <p class="prep-method">{{method}}</p>
+                <p class="description">{{description}}</p>
             </div>
             <div class="actions">
-                <a class="btn btn-danger" href="#">Archive</a>
-                <a class="btn btn-info" href="#">Edit</a>
-                <a class="btn btn-success" href="#"> 900 likes</a>
+                {{#if isCreator}}
+                <a class="btn btn-danger" href="#/recipe/delete/{{objectId}}">Archive</a>
+                <a class="btn btn-info" href="#/recipe/edit/{{objectId}}">Edit</a>
+                {{else}}
+                <a class="btn btn-success" href="#/recipe/like/{{objectId}}"> {{likes}} likes</a>
+                {{/if}}
             </div>
         </div>
 
         <div class="detailsIngredients">
             <h3 class="my-3 ingredient">Ingredients</h3>
             <ul>
-                <li>First ingredient</li>
-                <li>Second ingredient</li>
-                <li>Third ingredient</li>
-                <li>...</li>
+                {{#each ingredients}}
+                <li>{{this}}</li>
+                {{/each}}
             </ul>
         </div>
     </div>

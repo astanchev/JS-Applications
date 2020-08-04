@@ -38,9 +38,9 @@ window.addEventListener('load', () => {
         //     recipe.editPost.call(ctx);
         // });
 
-        // this.get('#/recipe/details/:id', recipe.details);
-        // this.get('#/recipe/delete/:id', recipe.deleteEvent);
-        // this.get('#/recipe/like/:id', recipe.joinEvent);
+        this.get('#/recipe/details/:id', recipe.details);
+        // this.get('#/recipe/delete/:id', recipe.deleteRecipe);
+        // this.get('#/recipe/like/:id', recipe.likeRecipe);
     });
 
     app.run('/');

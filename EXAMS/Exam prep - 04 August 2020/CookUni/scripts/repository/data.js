@@ -57,16 +57,16 @@ export async function getAllRecipes(token) {
     })).json();
 }
 
-// export async function getEventById(token, eventId) {
-//     const urlEvent = url + endpoints.event + `/${eventId}`;
+export async function getRecipeById(token, recipeId) {
+    const urlRecipe = url + endpoints.recipe + `/${recipeId}`;
 
-//     return await (await fetch(urlEvent, {
-//         method: 'get',
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return await (await fetch(urlRecipe, {
+        method: 'get',
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
 
 // export async function editEvent(token, eventId, event) {
 //     const eventURL = url + endpoints.event + `/${eventId}`;
