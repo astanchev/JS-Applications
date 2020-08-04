@@ -68,18 +68,18 @@ export async function getRecipeById(token, recipeId) {
     })).json();
 }
 
-// export async function editEvent(token, eventId, event) {
-//     const eventURL = url + endpoints.event + `/${eventId}`;
+export async function editRecipe(token, recipeId, recipe) {
+    const recipeURL = url + endpoints.recipe + `/${recipeId}`;
 
-//     return await (await fetch(eventURL, {
-//         method: 'put',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'user-token': token
-//         },
-//         body: JSON.stringify(event)
-//     })).json();
-// }
+    return await (await fetch(recipeURL, {
+        method: 'put',
+        headers: {
+            'Content-type': 'application/json',
+            'user-token': token
+        },
+        body: JSON.stringify(recipe)
+    })).json();
+}
 
 // export async function deleteEvent(token, eventId) {
 //     const eventURL = url + endpoints.event + `/${eventId}`;

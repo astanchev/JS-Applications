@@ -33,10 +33,10 @@ window.addEventListener('load', () => {
             recipe.createPost.call(ctx);
         });
 
-        // this.get('#/recipe/edit/:id', recipe.editGet);
-        // this.post('#/recipe/edit/:id', (ctx) => {
-        //     recipe.editPost.call(ctx);
-        // });
+        this.get('#/recipe/edit/:id', recipe.editGet);
+        this.post('#/recipe/edit/:id', (ctx) => {
+            recipe.editPost.call(ctx);
+        });
 
         this.get('#/recipe/details/:id', recipe.details);
         // this.get('#/recipe/delete/:id', recipe.deleteRecipe);

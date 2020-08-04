@@ -124,7 +124,8 @@ export async function details() {
             image: recipeFromDB.image,
             categoryImageURL: recipeFromDB.categoryImageURL,
             likes: recipeFromDB.likes,
-            objectId: recipeFromDB.objectId
+            objectId: recipeFromDB.objectId,
+            ownerId: recipeFromDB.ownerId
         };
     } catch (error) {
         alert(error.message);
@@ -139,89 +140,98 @@ export async function details() {
     this.partial('../../templates/recipe/details.hbs', recipe);
 }
 
-// export async function editGet() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function editGet() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     this.partials = {
-//         header: (await this.load('../../templates/common/header.hbs')),
-//         footer: (await this.load('../../templates/common/footer.hbs')),
-//         notifications: (await this.load('../../templates/common/notifications.hbs'))
-//     };
+    this.partials = {
+        header: (await this.load('../../templates/common/header.hbs')),
+        footer: (await this.load('../../templates/common/footer.hbs')),
+        notifications: (await this.load('../../templates/common/notifications.hbs'))
+    };
 
-//     let event = {};
+    let recipe = {};
 
-//     try {
-//         event = await data.getEventById(token, this.params.id);
-//         if (event.code) {
-//             throw event;
-//         }
-//     } catch (error) {
-//         alert(error.message);
-//     }
+    try {
+        recipe = await data.getRecipeById(token, this.params.id);
+        if (recipe.code) {
+            throw recipe;
+        }
+    } catch (error) {
+        alert(error.message);
+    }
 
-//     Object.assign(event, this.app.userData);
+    Object.assign(recipe, this.app.userData);
 
-//     this.partial('../../templates/event/edit.hbs', event);
-// }
+    this.partial('../../templates/recipe/edit.hbs', recipe);
+}
 
-// export async function editPost() {
-//     const token = localStorage.getItem('userToken');
-//     if (!token) {
-//         notifications.showError('User is not logged in');
-//         this.redirect('#/home');
-//         return;
-//     }
+export async function editPost() {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+        notifications.showError('User is not logged in');
+        this.redirect('#/home');
+        return;
+    }
 
-//     const errors = [];
+    const errors = [];
 
-//     if (this.params.name.length < 6) {
-//         errors.push('Event name should be at least 6 symbols');
-//     }
+    if (this.params.meal.length < 4) {
+        errors.push('Meal name should be at least 4 symbols');
+    }
 
-//     if (this.params.dateTime.length === 0 || !(/^[0-3][0-9] [a-zA-Z]+( - [0-1][0-9] [aA|pP][mM])*$/g).test(this.params.dateTime)) {
-//         errors.push('Event date should be valid in format "dd mmmm" or "dd mmmm - HH AM or PM"!');
-//     }
+    if (this.params.ingredients.length === 0 || this.params.ingredients.split(', ').length < 2) {
+        errors.push('Should be at least 2 ingredients');
+    }
 
-//     if (this.params.description.length < 10) {
-//         errors.push('Event description should be at least 10 symbols');
-//     }
+    if (this.params.prepMethod.length < 10) {
+        errors.push('Event description should be at least 10 symbols');
+    }
 
-//     if (this.params.imageURL.length === 0 || (!(this.params.imageURL.startsWith(`http://`)) && !(this.params.imageURL.startsWith(`https://`)))) {
-//         errors.push('Event image should starts with "http://" or "https://"');
-//     }
+    if (this.params.description.length < 10) {
+        errors.push('Event description should be at least 10 symbols');
+    }
 
-//     if (errors.length > 0) {
-//         document.querySelector('form').reset();
-//         notifications.showError(errors.join(' '));
-//         return;
-//     }
+    if (this.params.foodImageURL.length === 0 || (!(this.params.foodImageURL.startsWith(`http://`)) && !(this.params.foodImageURL.startsWith(`https://`)))) {
+        errors.push('Food image url should starts with "http://" or "https://"');
+    }
 
-//     const event = {
-//         name: this.params.name,
-//         dateTime: this.params.dateTime,
-//         description: this.params.description,
-//         image: this.params.imageURL
-//     };
+    if (!Object.keys(categories).includes(this.params.category)) {
+        errors.push('Category should be selected');
+    }
 
-//     try {
-//         notifications.showLoader();
-//         const updatedEvent = await data.editEvent(token, this.params.id, event);
-//         if (updatedEvent.code) {
-//             throw updatedEvent;
-//         }
-//         notifications.hideLoader();
-//         notifications.showInfo('Event edited successfully!');
-//         this.redirect('#/home');
-//     } catch (error) {
-//         notifications.hideLoader();
-//         notifications.showError(error.message);
-//     }
-// }
+    if (errors.length > 0) {
+        notifications.showError(errors.join('\r\n'));
+        return;
+    }
+
+    const recipe = {
+        meal: this.params.meal,
+        category: this.params.category,
+        ingredients: this.params.ingredients,
+        method: this.params.prepMethod,
+        description: this.params.description,
+        image: this.params.foodImageURL
+    };
+
+    try {
+        notifications.showLoader();
+        const updatedRecipe = await data.editRecipe(token, this.params.id, recipe);
+        if (updatedRecipe.code) {
+            throw updatedRecipe;
+        }
+        notifications.hideLoader();
+        notifications.showInfo('Recipe edited successfully!');
+        this.redirect('#/home');
+    } catch (error) {
+        notifications.hideLoader();
+        notifications.showError(error.message);
+    }
+}
 
 // export async function deleteEvent() {
 //     const token = localStorage.getItem('userToken');
