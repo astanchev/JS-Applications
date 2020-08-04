@@ -40,7 +40,7 @@ export async function createPost() {
         errors.push('Meal name should be at least 4 symbols');
     }
 
-    if (this.params.ingredients.length === 0 || this.params.ingredients.split(' ').length < 2) {
+    if (this.params.ingredients.length === 0 || this.params.ingredients.split(', ').length < 2) {
         errors.push('Should be at least 2 ingredients');
     }
 

@@ -48,14 +48,14 @@ export async function createRecipe(token, recipe) {
     })).json();
 }
 
-// export async function getAllEvents(token) {
+export async function getAllRecipes(token) {
 
-//     return (await fetch(url + endpoints.event, {
-//         headers: {
-//             'user-token': token
-//         }
-//     })).json();
-// }
+    return (await fetch(url + endpoints.recipe, {
+        headers: {
+            'user-token': token
+        }
+    })).json();
+}
 
 // export async function getEventById(token, eventId) {
 //     const urlEvent = url + endpoints.event + `/${eventId}`;
