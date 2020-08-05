@@ -154,7 +154,14 @@ export async function editGet() {
 
     Object.assign(recipe, this.app.userData);
 
-    this.partial('../../templates/recipe/edit.hbs', recipe);
+    await this.partial('../../templates/recipe/edit.hbs', recipe);
+
+    const selectMenuOptions = document.querySelectorAll('select[name=category]>option');
+    selectMenuOptions.forEach(o => {
+        if (o.textContent === recipe.category) {
+            o.selected = true;
+        }
+    });
 }
 
 export async function editPost() {
