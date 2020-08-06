@@ -5,6 +5,7 @@ const endpoints = {
     login: 'users/login',
     logout: 'users/logout',
     movie: 'data/movie',
+    movieCount: 'data/movie/count',
     user: 'data/Users'
 };
 
@@ -72,29 +73,51 @@ export async function deleteMovie(token, movieId) {
     })).json();
 }
 
-export async function getMovies(token, searchedGenre) {
+export async function getMovieCount(token, searchedGenre) {
     let result = [];
 
-    if (searchedGenre) {
-        result = await getSearchedMovies(token, searchedGenre);
+    if (!searchedGenre) {
+        result = (await fetch(url + endpoints.movieCount, {
+            headers: {
+                'user-token': token
+            }
+        })).json();
     } else {
-        result = await getAllMovies(token);
+        result = (await fetch(url + endpoints.movieCount + `?where=${escape(`genres LIKE '%${searchedGenre}%'`)}`, {
+            headers: {
+                'user-token': token
+            }
+        })).json();
     }
 
     return result;
 }
 
-export async function getAllMovies(token) {
+export async function getMovies(token, searchedGenre, page) {
+    let result = [];
 
-    return (await fetch(url + endpoints.movie, {
+    if (searchedGenre) {
+        result = await getSearchedMovies(token, searchedGenre, page);
+    } else {
+        result = await getAllMovies(token, page);
+    }
+
+    return result;
+}
+
+export async function getAllMovies(token, page) {
+    const pagingQuery = `pageSize=9&offset=${(page-1)*9}`;
+
+    return (await fetch(url + endpoints.movie + '?' + pagingQuery, {
         headers: {
             'user-token': token
         }
     })).json();
 }
 
-export async function getSearchedMovies(token, searchedGenre) {
-    const whereURL = url + endpoints.movie + `?where=${escape(`genres LIKE '%${searchedGenre}%'`)}`;
+export async function getSearchedMovies(token, searchedGenre, page) {
+    const pagingQuery = `pageSize=9&offset=${(page-1)*9}`;
+    const whereURL = url + endpoints.movie + `?where=${escape(`genres LIKE '%${searchedGenre}%'`)}`  + '&' + pagingQuery;
 
     return (await fetch(whereURL, {
         headers: {
