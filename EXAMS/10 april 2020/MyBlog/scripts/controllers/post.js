@@ -92,7 +92,6 @@ export async function deletePost() {
     }
 }
 
-
 export async function editGet() {
     const token = localStorage.getItem('userToken');
     if (!token) {
